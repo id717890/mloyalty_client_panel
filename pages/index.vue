@@ -15,6 +15,6 @@
 <script>
 export default {
   layout: 'default',
-  middleware: ['mlauth'],
+  middleware: ['jwtauth'],
 }
 </script>

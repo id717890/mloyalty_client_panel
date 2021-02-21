@@ -73,7 +73,7 @@ export default {
     verificationCode,
   },
   layout: 'default',
-  middleware: ['mlauth'],
+  middleware: ['jwtauth'],
   data: () => ({
     phone: 9224870500,
     isSentVerificationCode: false, // Признак того что отправили код, т.е. нажали на кнопку "Подтвердить"
@@ -108,7 +108,9 @@ export default {
     successVerificationProcess() {
       this.successVerification = true
       this[verifyTypes.SET_PHONE](this.clearPhone)
-      this.$router.push({ name: 'dashboard' })
+      setTimeout(() => {
+        this.$router.push({ name: 'dashboard' })
+      }, 2000)
     },
   },
 }

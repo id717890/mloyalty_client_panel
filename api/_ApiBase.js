@@ -1,9 +1,5 @@
 import axios from 'axios'
 import AuthService from './AuthService'
-import authLS from '~/plugins/authLS'
-// import config from '../init/config'
-// import store from '../store'
-// console.log(Vue.prototype.$auth.getToken());
 
 const Axios = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
@@ -19,7 +15,7 @@ Axios.interceptors.request.use(
   (config) => {
     // TODO - удалить это условие для проверки refresh_token
     // if (config.url !== 'api/site/GetCampaigns')
-    config.headers.Authorization = 'Bearer ' + authLS.getAccessToken()
+    config.headers.Authorization = 'Bearer ' + AuthService.getAccessToken()
     return config
   },
   (error) => {

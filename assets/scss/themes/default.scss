@@ -1,0 +1,31 @@
+.ml-burger {
+  position: absolute;
+  top: 26px;
+  right: 24px;
+}
+
+.ml-dashboard-layout {
+  background-color: #F6F6F6;
+}
+
+.ml-client-info {
+  padding: 30px 46px 20px;
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.ml-client-orders{
+  padding: 30px 46px 20px;
+}
+
+.ml-order-block {
+  background-color: white;
+  border-radius: 8px;
+  padding: 26px 22px;
+  margin-bottom: 11px;
+}
+
+.ml-orders-list{
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+}

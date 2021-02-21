@@ -1,0 +1,147 @@
+.ml-input,
+.ml-select {
+  .v-input__slot {
+    border: none;
+    border-radius: 6px;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+
+    legend {
+      width: inherit !important;
+    }
+  }
+
+  fieldset {
+    border: 1px solid #e6e6e6;
+  }
+
+  .v-label--active {
+    top: 29px;
+  }
+
+  .v-text-field__slot {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+
+    letter-spacing: -0.02em;
+
+    color: #4d4d4d;
+  }
+}
+
+.v-menu__content .v-list-item.primary--text,
+.v-menu__content .v-list-item.primary--text::before {
+  color: black !important;
+  background-color: #fafafa !important;
+}
+
+.ml-select.v-input--is-focused,
+.ml-input.v-input--is-focused {
+  .v-input__slot {
+    border: none;
+  }
+
+  fieldset {
+    border: 1px solid #000000;
+  }
+}
+
+.ml-input-noty {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.03em;
+  color: #808080;
+}
+
+.ml-input.novalidate {
+  .v-input__append-inner {
+    display: none !important;
+  }
+}
+
+.ml-input-prepend-inner {
+  .v-input__icon--prepend-inner {
+    padding-right: 12px;
+    margin-right: 12px;
+    border-right: 1px solid #e6e6e6;
+  }
+
+  .v-label--active {
+    left: 0 !important;
+    top: 29px !important;
+  }
+  .v-input__prepend-inner i {
+    font-size: 16px;
+    color: black;
+  }
+
+  .v-input__prepend-inner i.primary--text {
+    color: black !important;
+  }
+}
+
+/*Поле ввода кода верификации*/
+input[type='text'].ml-input-code,
+input[type='number'].ml-input-code,
+.ml-input-code {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  outline: none !important;
+
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.02em;
+  color: #000000;
+}
+
+input[type='number'].ml-input-code::-webkit-outer-spin-button,
+input[type='number'].ml-input-code::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+input[type='number'].ml-input-code {
+  -moz-appearance: textfield !important;
+}
+
+.ml-input-code.invalid {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  outline: none !important;
+  border: 1px solid #e94574 !important;
+}
+
+.ml-input-code:focus {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  outline: none !important;
+  border: 1px solid #000000 !important;
+}
+
+.ml-hide-details {
+  .v-text-field__details {
+    display: none;
+  }
+}

@@ -1,0 +1,68 @@
+.ml-black-btn,
+.ml-silver-btn,
+.ml-flat-btn {
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.03em;
+  display: block;
+  text-align: center;
+}
+
+.ml-black-btn {
+  background: #000000;
+  color: #ffffff !important;
+
+  i {
+    color: #ffffff !important;
+  }
+}
+
+.ml-silver-btn {
+  background: #f0f0f0;
+  color: #4d4d4d !important;
+
+  i {
+    color: #4d4d4d !important;
+  }
+}
+
+.ml-black-btn:disabled,
+.ml-black-btn[disabled],
+.ml-black-btn:disabled:hover,
+.ml-black-btn[disabled]:hover,
+.ml-silver-btn:disabled,
+.ml-silver-btn[disabled],
+.ml-silver-btn:disabled:hover,
+.ml-silver-btn[disabled]:hover {
+  background: #e6e6e6;
+}
+
+.ml-black-btn:hover {
+  background: #2c2c2c;
+}
+
+.ml-purple-btn {
+  padding: 16px;
+  background: #5d71c5;
+  border-radius: 8px;
+  color: #f0f0f0 !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.ml-purple-btn:hover {
+  background: #6c82d8;
+}
+
+.ml-silver-btn:hover {
+  background: #dfdddd;
+}
+
+.ml-flat-btn:hover {
+  background: #e2e0e0;
+}

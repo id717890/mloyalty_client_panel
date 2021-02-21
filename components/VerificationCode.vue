@@ -1,9 +1,9 @@
 <template>
-  <div class="row">
-    <div class="col-12 pt-0">
-      <p class="text1">Введите код подтверждения</p>
+  <div>
+    <div class="">
+      <p class="ml-text-16-24-600 mb-6">Введите код подтверждения</p>
     </div>
-    <div class="col-12 d-flex align-center">
+    <div class="d-flex align-center mb-6">
       <MlInputCode
         ref="code1"
         v-model="number1OfCode"
@@ -45,21 +45,21 @@
         color="#000000"
       ></v-progress-circular>
     </div>
-    <div v-if="invalidCode" class="col-12 error-message">
+    <div v-if="invalidCode" class="ml-error-text ml-title-14-20 mb-6">
       Введён неверный код подтверждения
     </div>
-    <div v-if="isSms" class="col-12 text2">
+    <div v-if="isSms" class="ml-title-14-20">
       Код подтверждения отправлен Вам в смс
     </div>
-    <div v-if="isMessenger" class="col-12 text2">
+    <div v-if="isMessenger" class="ml-title-14-20">
       Ссылка для получения кода подтверждения в Telegram, отправлена Вам в смс.
       Перейдите по ссылке и получите код подтверждения.
     </div>
     <slot name="text"> </slot>
-    <div v-if="!showResendBtn" class="col-12 text-center text2">
+    <div v-if="!showResendBtn" class="text-center ml-title-14-20 mt-6">
       {{ timerForResendText }}
     </div>
-    <div v-if="showResendBtn" class="col-12 text-center text2">
+    <div v-if="showResendBtn" class="text-center ml-title-14-20 mt-6">
       <a href="#" @click.prevent="startTimerForResend(true)">
         Отправить повторно
       </a>
@@ -104,8 +104,7 @@ export default {
   }),
   computed: {
     ...mapState({
-      processVerificationCode: (state) =>
-        state.verificationCode.isInitCodeInProccess,
+      processVerificationCode: (state) => state.verify.isInitCodeInProccess,
     }),
     timerForResendText() {
       return `Отправить повторно можно через ${this.timerForResend.seconds}с`
@@ -113,12 +112,12 @@ export default {
     invalidCode() {
       return this.successVerification === false
     },
-    // isSms() {
-    //   return this.type === VERIFICATION_BY_SMS
-    // },
-    // isMessenger() {
-    //   return this.type === VERIFICATION_BY_MESSENGER
-    // },
+    isSms() {
+      return this.type === 'VERIFICATION_BY_SMS'
+    },
+    isMessenger() {
+      return this.type === 'VERIFICATION_BY_MESSENGER'
+    },
     clearPhone() {
       return this.phone
         ?.replaceAll(' ', '')
@@ -145,7 +144,7 @@ export default {
     this.$refs?.code1?.$el?.focus()
   },
   methods: {
-    ...mapActions('verificationCode', [
+    ...mapActions('verify', [
       verifyTypes.SEND_VERIFICATIONCODE_VIA_SMS,
       verifyTypes.REQUEST_CODE,
     ]),
@@ -189,7 +188,14 @@ export default {
         phone: this.clearPhone,
       }).then((result) => {
         this.successVerification = result
-        if (result === true) this.$emit('success')
+        if (result === true) {
+          this.$emit('success')
+        } else {
+          setTimeout(() => {
+            this.resetCode()
+            this.$refs?.code1?.$el?.focus()
+          }, 2000)
+        }
       })
     },
     sendVerificationCodeViaMessanger(code) {
@@ -246,12 +252,12 @@ export default {
         const code3 = this.number3OfCode
         const code4 = this.number4OfCode
         if (code1 && code2 && code3 && code4) {
-          // const code = `${code1}${code2}${code3}${code4}`
-          // if (this.type === VERIFICATION_BY_SMS) {
-          //   this.debounced.sendVerificationCodeViaSms(code)
-          // } else {
-          //   this.debounced.sendVerificationCodeViaMessanger(code)
-          // }
+          const code = `${code1}${code2}${code3}${code4}`
+          if (this.isSms) {
+            this.debounced.sendVerificationCodeViaSms(code)
+          } else {
+            this.debounced.sendVerificationCodeViaMessanger(code)
+          }
         }
       }
     },

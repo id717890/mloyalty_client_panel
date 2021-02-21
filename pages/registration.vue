@@ -26,6 +26,7 @@
     </div>
     <div>
       <button
+        v-if="!successVerification && !isSentVerificationCode"
         :disabled="!validatePhone"
         class="ml-black-btn w100"
         @click="requestCode"
@@ -41,15 +42,14 @@
         @success="successVerificationProcess"
       >
         <template #text>
-          <div class="col-12 text2">
-            После подтверждения номера телефона мы отобразим полную информацию о
-            подарочном сертификате
+          <div class="ml-title-14-20">
+            Вводя смс-код вы соглашаетесь с правилами клуба
           </div>
         </template>
       </verification-code>
       <template v-if="successVerification">
         <div class="col-12 px-0 pt-0">
-          <v-icon class="success-message">mdi-check-circle</v-icon>
+          <v-icon class="ml-success-text">mdi-check-circle</v-icon>
           <span class="ml-2">Номер подтвержден!</span>
         </div>
       </template>
@@ -61,7 +61,7 @@
 import { mask } from 'vue-the-mask'
 import verifyTypes from '@/store/verify/types'
 import verificationCode from '@/components/VerificationCode'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 const COMMUNICATION_TYPE = 1
 
@@ -73,12 +73,16 @@ export default {
     verificationCode,
   },
   layout: 'default',
+  middleware: ['mlauth'],
   data: () => ({
     phone: 9224870500,
     isSentVerificationCode: false, // Признак того что отправили код, т.е. нажали на кнопку "Подтвердить"
     successVerification: false,
   }),
   computed: {
+    verificationType() {
+      return 'VERIFICATION_BY_SMS'
+    },
     validatePhone() {
       return this.phone?.length === 15
     },
@@ -92,6 +96,7 @@ export default {
   },
   methods: {
     ...mapActions('verify', [verifyTypes.REQUEST_CODE]),
+    ...mapMutations('verify', [verifyTypes.SET_PHONE]),
     requestCode() {
       const phone = this.clearPhone
       const communicationtype = COMMUNICATION_TYPE
@@ -99,6 +104,11 @@ export default {
         phone,
         communicationtype,
       }).then(() => (this.isSentVerificationCode = true))
+    },
+    successVerificationProcess() {
+      this.successVerification = true
+      this[verifyTypes.SET_PHONE](this.clearPhone)
+      this.$router.push({ name: 'dashboard' })
     },
   },
 }

@@ -1,12 +1,12 @@
 import VerifyService from '@/api/VerifyService'
-// import router from '@/router'
 import types from './types'
+// import router from '~/router'
 
 export default {
-  [types.REQUEST_CODE]: async (
+  async [types.REQUEST_CODE](
     { state, rootState, commit, getters, rootGetters },
     payload
-  ) => {
+  ) {
     const sitecode = rootGetters['app/getSiteCode']
     const operator = rootState?.auth?.decodeJwt?.oper
     const token = rootState?.auth?.decodeJwt?.token
@@ -32,22 +32,29 @@ export default {
         ) {
           return Promise.resolve()
         } else {
-          // eslint-disable-next-line no-undef
-          router.push({
-            name: 'Error',
+          console.log('error status')
+          this.$router.push({
+            name: 'Errors-400',
             params: { message: 'Ошибка при отправке кода на телефон' },
           })
         }
       })
       .catch((error) => {
-        // eslint-disable-next-line no-undef
-        router.push({
-          name: 'Error',
+        console.log('error catch')
+        this.$router.push({
+          name: 'Errors-400',
           params: {
             message: 'Ошибка при отправке кода на телефон',
             subMessage: error,
           },
         })
+        // router.push({
+        //   name: 'Error',
+        //   params: {
+        //     message: 'Ошибка при отправке кода на телефон',
+        //     subMessage: error,
+        //   },
+        // })
       })
   },
   [types.SEND_VERIFICATIONCODE_VIA_SMS]: async (

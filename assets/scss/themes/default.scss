@@ -4,6 +4,12 @@
   right: 24px;
 }
 
+.ml-burger-back {
+  position: absolute;
+  top: 26px;
+  left: 24px;
+}
+
 .ml-dashboard-layout {
   background-color: #F6F6F6;
 }
@@ -28,4 +34,42 @@
   display: flex;
   flex-flow: column;
   flex-grow: 1;
+}
+
+// Panel burger transition 
+.ml-panel-burger-fade-enter {
+  opacity: 0;
+  transform: translate(2em, 0);
+}
+
+.ml-panel-burger-fade-leave-active {
+  opacity: 0;
+  transform: translate(-2em, 0);
+}
+
+.ml-panel-burger-fade-enter-active,
+.ml-panel-burger-fade-leave-active {
+  transition-duration: 0.25s;
+  transition-property: height, opacity, transform;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  overflow: hidden;
+}
+
+// Panel burger transition END
+
+.ml-burger-layout {
+ padding-top: 80px;
+}
+
+.ml-burger-index {
+  padding: 0px 66px;
+}
+
+.ml-burger-index-menu {
+  list-style: none;
+
+  li {
+    margin-bottom: 32px;
+  }
+
 }

@@ -6,48 +6,53 @@
           <div
             class="col-lg-4 offset-lg-4 col-sm-12 d-flex flex-column h100 test"
           >
-            <a
-              href="#"
-              class="ml-burger"
-              @click.prevent="showPanel = !showPanel"
-            >
+            <a href="#" class="ml-burger" @click.prevent="toggleBurger">
               <img src="~/static/image/burger.svg" alt="" />
             </a>
 
             <!-- Default layout -->
-            <!-- <v-btn @click="showPanel = !showPanel">Open panel</v-btn> -->
             <Nuxt />
           </div>
         </div>
       </div>
       <v-navigation-drawer
-        v-model="showPanel"
+        :value="burgerShow"
         class="elevation-0"
         hide-overlay
-        width="100%"
+        :width="burgerWidth"
         app
+        stateless
         temporary
         right
       >
-        <a href="#" class="ml-burger" @click.prevent="showPanel = !showPanel">
-          Закрыть
-        </a>
+        <burger-layout />
       </v-navigation-drawer>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+import appTypes from '~/store/app/types'
+import burgerLayout from '~/components/Burger/Layout'
+
 export default {
-  components: {},
+  components: { burgerLayout },
   directives: {},
   middleware: 'verify',
-  data: () => ({
-    showPanel: false,
-  }),
-  computed: {},
-  watch: {},
+  data: () => ({}),
+  computed: {
+    ...mapState({
+      burgerWidth: (state) => state?.app?.panelBurger?.width,
+      burgerShow: (state) => state?.app?.panelBurger?.show,
+    }),
+  },
   mounted() {},
-  methods: {},
+  methods: {
+    ...mapMutations('app', [appTypes.TOGGLE_PANEL_BURGER]),
+    toggleBurger() {
+      this[appTypes.TOGGLE_PANEL_BURGER]()
+    },
+  },
 }
 </script>

@@ -3,7 +3,7 @@
     <div class="ml-client-info">
       <div class="ml-text-24-32-600 mb-3">Александр Лигомин</div>
       <div class="ml-text-18-20 mb-4">+ 7 911 227 02 44</div>
-      <div class="ml-text-32-40-600">2 892 ₽</div>
+      <div class="ml-text-32-40-600">{{ price }} ₽</div>
     </div>
     <div class="ml-orders-list">
       <template v-if="!orders">
@@ -72,6 +72,9 @@ import { mapState } from 'vuex'
 
 export default {
   layout: 'dashboard',
+  data: () => ({
+    price: 0,
+  }),
   computed: {
     ...mapState({
       phone: (state) => state.verify.phone,
@@ -81,6 +84,7 @@ export default {
   methods: {
     startBuy() {
       this.$store.commit('order/ADD_FAKE_ORDERS')
+      this.price = '2 892'
     },
     openDetails() {
       this.$router.push({ name: 'dashboard-order-id', params: { id: 1234 } })

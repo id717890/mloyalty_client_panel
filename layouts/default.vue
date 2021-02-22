@@ -1,27 +1,16 @@
 <template>
   <v-app>
     <v-main>
-      <div class="container-fluid h100">
-        <div class="row h100">
+      <div class="container-fluid h100 px-0">
+        <div class="row h100 ma-0">
           <div
-            class="col-lg-4 offset-lg-4 col-sm-12 d-flex flex-column h100 test"
+            class="col-lg-4 offset-lg-4 col-sm-12 d-flex flex-column h100 test pa-0"
           >
-            <!-- Default layout -->
-            <!-- <v-btn @click="showPanel = !showPanel">Open panel</v-btn> -->
-            <Nuxt />
+            <Nuxt class="nuxt-router flex-grow-1" />
+            <MlFooter />
           </div>
         </div>
       </div>
-      <v-navigation-drawer
-        v-model="showPanel"
-        class="elevation-0"
-        hide-overlay
-        app
-        temporary
-        right
-      >
-        open
-      </v-navigation-drawer>
     </v-main>
   </v-app>
 </template>
@@ -30,9 +19,7 @@
 export default {
   components: {},
   directives: {},
-  data: () => ({
-    showPanel: false,
-  }),
+  data: () => ({}),
   computed: {},
   watch: {},
   mounted() {},

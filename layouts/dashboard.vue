@@ -2,6 +2,9 @@
   <v-app class="ml-dashboard-layout">
     <v-main class="ml-dashboard-layout">
       <div class="container-fluid h100 px-0">
+        <div v-if="loading" class="ml-fullscreen-loading">
+          <MlLoading />
+        </div>
         <div class="row h100 ma-0">
           <div
             class="col-lg-4 offset-lg-4 col-sm-12 d-flex flex-column h100 test pa-0"
@@ -34,14 +37,17 @@
 import { mapState, mapMutations } from 'vuex'
 import appTypes from '~/store/app/types'
 import burgerLayout from '~/components/Burger/Layout'
+import MlLoading from '~/components/UI/MlLoading'
 
 export default {
-  components: { burgerLayout },
-  middleware: 'verify',
+  components: { burgerLayout, MlLoading },
+  middleware: ['jwtauth', 'lkauth'],
+  data: () => ({}),
   computed: {
     ...mapState({
       burgerWidth: (state) => state?.app?.panelBurger?.width,
       burgerShow: (state) => state?.app?.panelBurger?.show,
+      loading: (state) => state?.app?.loading,
     }),
   },
   methods: {

@@ -26,6 +26,7 @@ import AuthService from '@/api/AuthService'
 //   })
 // }
 export default async ({ store, redirect }) => {
+  console.log('jwtauth')
   const accessToken = store?.state?.auth?.accessToken
   const refreshToken = store?.state?.auth?.refreshToken
   // Определяем наличие accessToken и refreshToken в хранилище

@@ -69,3 +69,16 @@ button:focus {
   // -ms-overflow-style: none; /* IE and Edge */
   // scrollbar-width: none; /* Firefox */
 }
+
+.ml-fullscreen-loading {
+  position: absolute;
+  background: white;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

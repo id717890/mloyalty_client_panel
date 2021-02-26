@@ -1,6 +1,9 @@
 import types from './types'
 
 export default {
+  [types.SET_LOADING]: (state, loading) => {
+    state.loading = loading
+  },
   [types.SET_CURRENT_BURGER_PAGE]: (state, page) => {
     state.panelBurger.page = page
   },

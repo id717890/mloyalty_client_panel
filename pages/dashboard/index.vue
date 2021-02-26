@@ -24,7 +24,9 @@
         <div class="ml-client-orders">
           <div v-for="order in orders" :key="order.id" class="ml-order-block">
             <div class="d-flex">
-              <div class="ml-text-19-22-500 flex-grow-1">{{ order.title }}</div>
+              <div class="ml-text-19-22-500 flex-grow-1">
+                {{ order.title }}
+              </div>
               <div class="d-flex flex-column">
                 <div class="ml-text-13-18">{{ order.date }}</div>
                 <div class="ml-text-13-18">{{ order.time }}</div>

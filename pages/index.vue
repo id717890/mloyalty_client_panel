@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex flex-column justify-content-center align-items-center h100 index"
+    class="d-flex flex-column justify-content-center align-items-center index"
   >
     <img src="~/static/image/envelope.svg" class="mb-6" alt="" />
     <span class="ml-text-20-28-500 mx-16 text-center mb-6">

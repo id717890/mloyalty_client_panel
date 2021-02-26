@@ -89,7 +89,12 @@ export default {
         }
       })
       .catch(() => Promise.resolve(false))
-      .finally(() => commit(types.INIT_VERIFICATION_CODE_PROCESS, false))
+      .finally(() => {
+        setTimeout(
+          () => commit(types.INIT_VERIFICATION_CODE_PROCESS, false),
+          500
+        )
+      })
   },
   [types.SEND_VERIFICATIONCODE_VIA_MESSANGER]: async (
     { state, rootState, commit, getters, rootGetters },
@@ -123,6 +128,11 @@ export default {
         }
       })
       .catch(() => Promise.resolve(false))
-      .finally(() => commit(types.INIT_VERIFICATION_CODE_PROCESS, false))
+      .finally(() => {
+        setTimeout(
+          () => commit(types.INIT_VERIFICATION_CODE_PROCESS, false),
+          500
+        )
+      })
   },
 }

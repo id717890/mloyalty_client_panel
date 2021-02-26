@@ -75,7 +75,7 @@ export default {
   layout: 'default',
   middleware: ['jwtauth'],
   data: () => ({
-    phone: 9224870500,
+    phone: null,
     isSentVerificationCode: false, // Признак того что отправили код, т.е. нажали на кнопку "Подтвердить"
     successVerification: false,
   }),
@@ -94,6 +94,9 @@ export default {
         .replaceAll('-', '')
     },
   },
+  mounted() {
+    this.$refs?.phone?.focus()
+  },
   methods: {
     ...mapActions('verify', [verifyTypes.REQUEST_CODE]),
     ...mapMutations('verify', [verifyTypes.SET_PHONE]),
@@ -106,8 +109,10 @@ export default {
       }).then(() => (this.isSentVerificationCode = true))
     },
     successVerificationProcess() {
-      this.successVerification = true
-      this[verifyTypes.SET_PHONE](this.clearPhone)
+      setTimeout(() => {
+        this.successVerification = true
+        this[verifyTypes.SET_PHONE](this.clearPhone)
+      }, 500)
       setTimeout(() => {
         this.$router.push({ name: 'dashboard' })
       }, 2000)

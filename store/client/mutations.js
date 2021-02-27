@@ -10,4 +10,7 @@ export default {
   [types.SET_CLIENT_CHEQUES]: (state, payload) => {
     state.clientCheques = payload
   },
+  [types.SET_CLIENT_BONUSES]: (state, payload) => {
+    state.clientBonuses = payload
+  },
 }

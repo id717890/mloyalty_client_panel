@@ -10,4 +10,7 @@ export default {
   getCheques(data) {
     return ApiBase.post('api/values/GetCheques', data)
   },
+  getBonuses(data) {
+    return ApiBase.post('api/client/BonusesNotForPurchases', data)
+  },
 }

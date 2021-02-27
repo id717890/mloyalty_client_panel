@@ -11,7 +11,7 @@
   // border: 1px solid green;
 }
 
-.index{
+.index {
   // border: 1px solid blue;
 }
 
@@ -54,7 +54,6 @@ button:focus {
   height: 100%;
 }
 
-
 .w100 {
   width: 100%;
 }
@@ -81,4 +80,23 @@ button:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.ml-readonly-field {
+  .v-input__slot::before,
+  .v-input__slot::after {
+    display: none !important;
+  }
+
+  .v-text-field__slot {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 20px;
+    color: #999999;
+
+    input {
+      color: #999999 !important;
+    }
+  }
 }

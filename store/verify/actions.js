@@ -5,15 +5,15 @@ import types from './types'
 export default {
   async [types.REQUEST_CODE](
     { state, rootState, commit, getters, rootGetters },
-    payload
+    { phone, communicationtype, codeType }
   ) {
     const sitecode = rootGetters['app/getSiteCode']
     const operator = rootState?.auth?.decodeJwt?.oper
     const token = rootState?.auth?.decodeJwt?.token
     // const name = 'Zamir'
     const email = 'jusupovz@gmail.com'
-    const phone = payload?.phone
-    const communicationtype = payload?.communicationType
+    // const phone = payload?.phone
+    // const communicationtype = payload?.communicationType
     const data = {
       sitecode,
       operator,
@@ -22,6 +22,7 @@ export default {
       email,
       phone,
       communicationtype,
+      codeType,
     }
     return VerifyService.requestCode(data)
       .then((response) => {

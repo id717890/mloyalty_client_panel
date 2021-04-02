@@ -37,8 +37,9 @@
     <div>
       <verification-code
         v-if="isSentVerificationCode && !successVerification"
-        :type="verificationType"
         :phone="phone"
+        :type="channelType"
+        :code-type="smsCodeType"
         @success="successVerificationProcess"
       >
         <template #text>
@@ -62,6 +63,7 @@ import { mask } from 'vue-the-mask'
 import verifyTypes from '@/store/verify/types'
 import verificationCode from '@/components/VerificationCode'
 import { mapActions, mapMutations } from 'vuex'
+import Constants from '~/helpers/constants'
 
 const COMMUNICATION_TYPE = 1
 
@@ -80,8 +82,11 @@ export default {
     successVerification: false,
   }),
   computed: {
-    verificationType() {
-      return 'VERIFICATION_BY_SMS'
+    channelType() {
+      return Constants?.SEND_METHOD?.SMS?.COMMUNICATION_TYPE // = 1
+    },
+    smsCodeType() {
+      return Constants?.SMS_CODE_TYPE?.SERT_BUYER // CodeType = 1
     },
     validatePhone() {
       return this.phone?.length === 15

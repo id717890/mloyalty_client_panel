@@ -48,13 +48,11 @@
     <div v-if="invalidCode" class="ml-error-text ml-title-14-20 mb-6">
       Введён неверный код подтверждения
     </div>
-    <div v-if="isSms" class="ml-title-14-20">
-      Код подтверждения отправлен Вам в смс
-    </div>
-    <div v-if="isMessenger" class="ml-title-14-20">
+    <div class="ml-title-14-20">Код подтверждения отправлен Вам в смс</div>
+    <!-- <div v-if="isMessenger" class="ml-title-14-20">
       Ссылка для получения кода подтверждения в Telegram, отправлена Вам в смс.
       Перейдите по ссылке и получите код подтверждения.
-    </div>
+    </div> -->
     <slot name="text"> </slot>
     <div v-if="!showResendBtn" class="text-center ml-title-14-20 mt-6">
       {{ timerForResendText }}
@@ -82,7 +80,13 @@ export default {
   },
   props: {
     type: {
-      type: String,
+      type: Number,
+      required: true,
+    },
+    // 1 - подтверждение телефона при оформлении
+    // 2 - код для проверки баланса
+    codeType: {
+      type: Number,
       required: true,
     },
     phone: {
@@ -112,12 +116,12 @@ export default {
     invalidCode() {
       return this.successVerification === false
     },
-    isSms() {
-      return this.type === 'VERIFICATION_BY_SMS'
-    },
-    isMessenger() {
-      return this.type === 'VERIFICATION_BY_MESSENGER'
-    },
+    // isSms() {
+    //   return this.type === 'VERIFICATION_BY_SMS'
+    // },
+    // isMessenger() {
+    //   return this.type === 'VERIFICATION_BY_MESSENGER'
+    // },
     clearPhone() {
       return this.phone
         ?.replaceAll(' ', '')
@@ -133,10 +137,10 @@ export default {
         this.sendVerificationCodeViaSms,
         debounceTimeout
       ),
-      sendVerificationCodeViaMessanger: debounce(
-        this.sendVerificationCodeViaMessanger,
-        debounceTimeout
-      ),
+      // sendVerificationCodeViaMessanger: debounce(
+      //   this.sendVerificationCodeViaMessanger,
+      //   debounceTimeout
+      // ),
     }
     this.startTimerForResend(false)
   },
@@ -161,12 +165,15 @@ export default {
         this.resetCode()
         const phone = this.clearPhone
         const communicationType = DEFAULT_COMMUNICATION_TYPE
+        const codeType = this.codeType
         this[verifyTypes.REQUEST_CODE]({
           phone,
           communicationType,
+          codeType,
         }).then(() => {
           this.timerForResend.seconds = TIMER_SECONDS
           this.timerForResend.id = setInterval(this.timerForResending, 1000)
+          this.$refs?.code1?.$el?.focus()
         })
       } else {
         this.showResendBtn = false
@@ -198,15 +205,15 @@ export default {
         }
       })
     },
-    sendVerificationCodeViaMessanger(code) {
-      this[verifyTypes.SEND_VERIFICATIONCODE_VIA_MESSANGER]({
-        code,
-        phone: this.clearPhone,
-      }).then((result) => {
-        this.successVerification = result
-        if (result === true) this.$emit('success')
-      })
-    },
+    // sendVerificationCodeViaMessanger(code) {
+    //   this[verifyTypes.SEND_VERIFICATIONCODE_VIA_MESSANGER]({
+    //     code,
+    //     phone: this.clearPhone,
+    //   }).then((result) => {
+    //     this.successVerification = result
+    //     if (result === true) this.$emit('success')
+    //   })
+    // },
     proccessNumber1() {
       this.successVerification = null
       this.number2OfCode = null
@@ -253,11 +260,11 @@ export default {
         const code4 = this.number4OfCode
         if (code1 && code2 && code3 && code4) {
           const code = `${code1}${code2}${code3}${code4}`
-          if (this.isSms) {
-            this.debounced.sendVerificationCodeViaSms(code)
-          } else {
-            this.debounced.sendVerificationCodeViaMessanger(code)
-          }
+          // if (this.isSms) {
+          this.debounced.sendVerificationCodeViaSms(code)
+          // } else {
+          // this.debounced.sendVerificationCodeViaMessanger(code)
+          // }
         }
       }
     },

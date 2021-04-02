@@ -1,0 +1,66 @@
+.ml-panel-basket-page {
+  // display: flex;
+  // height: 100%;
+  // align-items: center;
+  // justify-content: center;
+
+  .empty-cart-img {
+    margin-left: 20px;
+    margin-bottom: 30px;
+    display: block;
+  }
+
+  .empty-text {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #000000;
+    margin-bottom: 24px;
+  }
+
+  .ml-basket-item {
+    display: flex;
+    flex-flow: row;
+
+    .image {
+      display: flex;
+      flex: 0 0 140px;
+      // margin: 5px 0;
+    }
+
+    .content {
+      display: flex;
+      flex-flow: column;
+      padding-left: 24px;
+      flex: 1 1 auto;
+
+      .first {
+        margin: 7px 0;
+        display: flex;
+        flex-grow: 1;
+        word-break: break-all;
+      }
+
+      .second {
+        display: flex;
+        flex-flow: row;
+        justify-self: start;
+      }
+    }
+  }
+
+  .basket-total {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e6e6e6;
+  }
+
+  .btn-go-detail {
+    cursor: pointer;
+  }
+}

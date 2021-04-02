@@ -1,0 +1,134 @@
+.ml-black-btn,
+.ml-silver-btn,
+.ml-flat-btn {
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.03em;
+  display: block;
+  text-align: center;
+}
+
+.ml-black-btn {
+  background: #000000;
+  color: #ffffff !important;
+
+  i {
+    color: #ffffff !important;
+  }
+}
+
+.ml-silver-btn {
+  background: #f0f0f0;
+  color: #4d4d4d !important;
+
+  i {
+    color: #4d4d4d !important;
+  }
+}
+
+.ml-black-btn:disabled,
+.ml-black-btn[disabled],
+.ml-black-btn:disabled:hover,
+.ml-black-btn[disabled]:hover,
+.ml-silver-btn:disabled,
+.ml-silver-btn[disabled],
+.ml-silver-btn:disabled:hover,
+.ml-silver-btn[disabled]:hover {
+  background: #e6e6e6;
+}
+
+/**Кнопка закрытия панели*/
+.ml-close-panel-btn {
+  position: absolute;
+  left: -55px;
+  top: 10px;
+}
+
+.ml-close-panel-btn-mobile {
+  position: fixed !important;
+  right: 32px;
+  top: 10px;
+  z-index: 2;
+  color: #4d4d4d;
+}
+
+.ml-close-panel-btn-mobile-balance {
+  top: 16px;
+}
+
+.ml-black-btn:hover {
+  background: #2c2c2c;
+}
+
+.ml-purple-btn {
+  padding: 16px;
+  background: #5d71c5;
+  border-radius: 8px;
+  color: #f0f0f0 !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.ml-purple-btn:hover {
+  background: #6c82d8;
+}
+
+.ml-silver-btn:hover {
+  background: #dfdddd;
+}
+
+.ml-flat-btn:hover {
+  background: #e2e0e0;
+}
+
+.ml-sending-method-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #dbdbdb;
+  border-radius: 12px;
+}
+
+.ml-sending-method-btn.active {
+  border: 1px solid #000000;
+
+  i {
+    color: #000000;
+  }
+}
+
+.ml-swipe-button {
+  width: 270px;
+  margin: 0 auto;
+
+  .slide-button {
+    cursor: pointer;
+    width: 52px;
+    height: 52px;
+    background: #ffffff;
+    box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.12);
+    border-radius: 38px;
+  }
+
+  .slide-button:hover {
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.13);
+  }
+
+  .slide-text {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 40px;
+    letter-spacing: -0.03em;
+    color: #b3b3b3;
+  }
+}

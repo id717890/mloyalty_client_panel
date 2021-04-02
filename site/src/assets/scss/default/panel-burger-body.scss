@@ -1,0 +1,70 @@
+.mloyalty-panel-burger-body,
+.mloyalty-panel-body,
+.ml-perview-card {
+  .close-btn {
+    position: absolute;
+    right: 33px;
+    top: 19px;
+    z-index: 2;
+  }
+
+  ul.home-menu {
+    padding: 0;
+
+    li {
+      list-style: none;
+      margin-bottom: 24px;
+      color: #000000;
+
+      a {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 32px;
+        letter-spacing: -0.02em;
+      }
+    }
+
+    li:hover {
+      color: #525252;
+    }
+  }
+
+  .faq-item {
+    margin-bottom: 18px;
+
+    .faq-arrow-right {
+      margin-left: 12px;
+      display: block;
+    }
+    .faq-arrow-down {
+      display: none;
+    }
+
+    .question {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: -0.03em;
+      color: #000000;
+    }
+
+    .answer {
+      text-align: justify;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.2s ease-out;
+    }
+  }
+
+  .faq-item.active {
+    .faq-arrow-right {
+      display: none;
+    }
+    .faq-arrow-down {
+      display: block;
+      margin-left: 12px;
+    }
+  }
+}

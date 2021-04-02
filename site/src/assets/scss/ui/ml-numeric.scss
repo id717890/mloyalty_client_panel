@@ -1,0 +1,67 @@
+.ml-numeric {
+  display: flex;
+  flex-flow: row nowrap;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  // width: 80px;
+  height: 32px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  div,
+  input {
+    min-width: 30px;
+    margin: 0 8px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  input {
+    width: 30px;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input {
+    -moz-appearance: textfield;
+  }
+}
+
+.ml-numeric2 {
+  height: 48px;
+  width: 100%;
+  background: #000000;
+  border-radius: 8px;
+  display: flex;
+  padding: 12px 24px;
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+
+  span {
+    // display: flex;
+    // align-items: center;
+  }
+
+  i {
+    color: white !important;
+  }
+}

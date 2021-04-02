@@ -1,0 +1,73 @@
+// Extra small devices (portrait phones, less than 576px)
+@media only screen and (max-width: 575.98px) {
+  .share-ref {
+    display: none;
+  }
+
+  .congratulation {
+    padding: 0 35px !important;
+  }
+
+  .quiz-wrapper {
+    display: none;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+  .share-ref {
+    display: none;
+  }
+
+  .quiz-wrapper {
+    display: none;
+  }
+
+  .quiz-wrapper-mobile {
+    display: block;
+  }
+
+  .congratulation {
+    padding: 0 55px !important;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+  .quiz-wrapper {
+    display: none;
+  }
+
+  .quiz-wrapper-mobile {
+    display: block;
+  }
+
+  .home-card {
+    width: 330px;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media only screen and (min-width: 1200px) {
+}
+
+@media only screen and (max-width: 767.98px) {
+  .m-title-hidden {
+    display: none;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media only screen and (min-width: 992px) {
+  .quiz-wrapper-mobile {
+    display: none;
+  }
+
+  .home-card {
+    width: 360px;
+  }
+}

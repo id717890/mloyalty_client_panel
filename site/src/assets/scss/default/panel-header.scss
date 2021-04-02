@@ -1,0 +1,75 @@
+.mloyalty-panel-header {
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  height: 60px;
+  justify-content: space-between;
+  border-bottom: 1px solid #e6e6e6;
+  position: fixed;
+  width: 100%;
+  background: white;
+  z-index: 10;
+
+  .logo {
+    margin-left: 24px;
+    cursor: pointer;
+  }
+
+  .burger {
+    margin-right: 22px;
+    cursor: pointer;
+  }
+
+  .how-its-work {
+    color: #808080 !important;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 20px;
+  }
+}
+
+.mloyalty-panel-burger-header {
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  min-height: 60px;
+  border-bottom: 1px solid #e6e6e6;
+
+  .title {
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    color: #000000;
+    text-align: center;
+  }
+}
+
+.mloyalty-panel-burger-header.wo-border {
+  border: none !important;
+}
+
+@media only screen and (min-width: 768px) {
+  // .mloyalty-panel-header {
+  //   position: fixed;
+  //   width: 100%;
+  //   background: white;
+  //   z-index: 10;
+  // }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media only screen and (max-width: 575.98px) {
+  // .logo {
+  //   display: none;
+  // }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media only screen and (min-width: 576px) and (max-width: 767.98px) {
+  // .logo {
+  // display: none;
+  // }
+}

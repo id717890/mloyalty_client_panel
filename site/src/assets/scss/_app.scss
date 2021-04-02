@@ -1,0 +1,112 @@
+@import 'bootstrap/scss/bootstrap-grid.scss';
+// @import 'bootstrap/scss/bootstrap.scss';
+
+@import './common.scss';
+@import './text.scss';
+@import './default/variables.scss';
+@import './default/panel-layout.scss';
+@import './default/panel-header.scss';
+@import './default/panel-footer.scss';
+@import './default/panel-body.scss';
+@import './default/transition.scss';
+@import './default/panel-basket-page.scss';
+@import './default/panel-modal.scss';
+
+@import './default/panel-burger-body.scss';
+
+@import './ui/ml-textarea.scss';
+@import './ui/ml-btns.scss';
+@import './ui/ml-inputs.scss';
+@import './ui/ml-image.scss';
+@import './ui/ml-numeric.scss';
+@import './ui/ml-select.scss';
+@import './default/panel-preview.scss';
+@import './default/preview.scss';
+@import './default/quiz.scss';
+@import './default/panel-faq.scss';
+@import './media.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+* {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+html {
+  overflow-y: auto;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+button:focus {
+  outline: none;
+}
+
+.error-message {
+  color: #e94574 !important;
+}
+
+.success-message {
+  color: #20ac69 !important;
+}
+
+.h100 {
+  height: 100%;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.v-navigation-drawer__content::-webkit-scrollbar {
+  // display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.v-navigation-drawer__content {
+  // -ms-overflow-style: none; /* IE and Edge */
+  // scrollbar-width: none; /* Firefox */
+}
+
+.ml-delimeter {
+  height: 1px;
+  border: none;
+  background: #e6e6e6;
+}
+
+input {
+  outline: none;
+}
+
+.my-viber {
+  // background-image: url('../../assets/img/default/send-method-viber-unselect.jpg');
+  // background-position: center center;
+  // background-size: contain;
+  // width: 20px;
+  // height: 20px;
+}
+
+#widget-wrapper,
+#widget-balance-wrapper {
+  position: relative;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  width: 100%;
+  transition: all 1s ease-in-out;
+}
+
+.v-main__wrap {
+  display: flex;
+}

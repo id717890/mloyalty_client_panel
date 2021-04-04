@@ -77,6 +77,7 @@ export default {
   layout: 'default',
   middleware: ['jwtauth'],
   data: () => ({
+    // phone: 9224870500,
     phone: null,
     isSentVerificationCode: false, // Признак того что отправили код, т.е. нажали на кнопку "Подтвердить"
     successVerification: false,
@@ -101,6 +102,7 @@ export default {
   },
   mounted() {
     this.$refs?.phone?.focus()
+    // this.successVerificationProcess()
   },
   methods: {
     ...mapActions('verify', [verifyTypes.REQUEST_CODE]),

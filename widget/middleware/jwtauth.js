@@ -33,7 +33,8 @@ export default async ({ store, redirect }) => {
   // если их нет вызываем метод авторизации (либо из Local Storage, либо через АПИ)
   if (!accessToken || !refreshToken) {
     try {
-      await AuthService.authManager(store)
+      // await AuthService.authManager(store)
+      await AuthService.authManagerForce()
     } catch (e) {
       console.log('ERROR', e)
       redirect({ name: 'errors-400', params: { message: e } })

@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import authTypes from '@/store/auth/types'
 import ApiBase from './_ApiBase'
+// import store from '~/store'
+import config from '~/config'
 // import authLS from '~/plugins/authLS'
 
 export default {
@@ -27,6 +29,39 @@ export default {
   logout() {
     localStorage.removeItem('access_token')
     localStorage.removeItem('refresh_token')
+  },
+  /**
+   * Запускает принудительную авторизацию через АПИ, без проверки ключей в LS
+   */
+  authManagerForce() {
+    const user = config?.jwtu
+    const password = config?.jwtp
+    if (!user || !password)
+      throw new Error('AUTH_MANAGER_FORCED: JWT USER NOT DEFINED')
+    const data = new URLSearchParams()
+    data.append('username', user)
+    data.append('password', password)
+    data.append('grant_type', 'password')
+    return ApiBase.post('managerLogin', data).then((response) => {
+      if (response?.status === 200) {
+        console.log('FORCE REAUTH API')
+        const accessToken = response?.data?.access_token
+        const refreshToken = response?.data?.refresh_token
+        if (accessToken && refreshToken) {
+          // eslint-disable-next-line no-undef
+          // console.log($nuxt.$store)
+          // eslint-disable-next-line no-undef
+          $nuxt.$store.commit(
+            `auth/${authTypes.SET_REFRESH_TOKEN}`,
+            refreshToken
+          )
+          // eslint-disable-next-line no-undef
+          $nuxt.$store.commit(`auth/${authTypes.SET_ACCESS_TOKEN}`, accessToken)
+          this.setAccessToken(accessToken)
+          this.setRefreshToken(refreshToken)
+        }
+      }
+    })
   },
   authManager(store) {
     if (!store) throw new Error('AuthService.authManager: store is not defined')

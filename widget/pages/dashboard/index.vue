@@ -116,10 +116,10 @@ export default {
     },
     fio() {
       let fio = ''
-      const surname = this.clientInfo?.Surname
+      // const surname = this.clientInfo?.Surname
       const name = this.clientInfo?.Name
       const patronymic = this.clientInfo?.Patronymic
-      if (surname) fio += `${surname} `
+      // if (surname) `fio += `${surname} `
       if (name) fio += `${name} `
       if (patronymic) fio += `${patronymic} `
       return fio

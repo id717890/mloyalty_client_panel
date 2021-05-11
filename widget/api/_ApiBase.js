@@ -31,30 +31,38 @@ Axios.interceptors.response.use(
   },
   (error) => {
     console.log('AXIOS ERROR IN1', error)
-    console.log('AXIOS ERROR IN1', error.config)
     if (error?.response?.status === 401) {
-      console.log('AXIOS ERROR IN2')
-      return AuthService.refreshToken()
-        .then((response) => {
-          console.log('AFTER CALL REFRESH', response)
-          if (response?.status === 200 || response?.status === 201) {
-            console.log('AFTER STATUS 200')
-            // 1) put token to LocalStorage
-            // localStorageService.setToken(response.data)
-
-            // 2) Change Authorization header
-            const accessToken = response?.data?.access_token
-            error.config.headers.Authorization = `Bearer ${accessToken}`
-            // error.config.baseURL = undefined
-
-            // 3) return originalRequest object with Axios.
-            return Axios.request(error.config)
-          }
+      console.log('AXIOS ERROR 401')
+      return AuthService.authManagerForce()
+        .then(() => {
+          console.log('SUCCESS REAUTH')
+          return Axios.request(error.config)
         })
         .catch((error) => {
-          console.log('AFTER ERROR REFRESH', error)
+          console.log('CATCH REAUTH, ERROR FORCED AUTH', error)
           return Promise.reject(error)
         })
+      // return AuthService.refreshToken()
+      //   .then((response) => {
+      //     console.log('AFTER CALL REFRESH', response)
+      //     if (response?.status === 200 || response?.status === 201) {
+      //       console.log('AFTER STATUS 200')
+      //       // 1) put token to LocalStorage
+      //       // localStorageService.setToken(response.data)
+
+      //       // 2) Change Authorization header
+      //       const accessToken = response?.data?.access_token
+      //       error.config.headers.Authorization = `Bearer ${accessToken}`
+      //       // error.config.baseURL = undefined
+
+      //       // 3) return originalRequest object with Axios.
+      //       return Axios.request(error.config)
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log('AFTER ERROR REFRESH', error)
+      //     return Promise.reject(error)
+      //   })
     }
     // if (error?.response) {
     // }

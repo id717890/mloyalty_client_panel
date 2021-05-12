@@ -3,8 +3,35 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed: {
+    ...mapState({
+      isTest: state => state?.app?.testMode ?? true
+    })
+  },
   methods: {
+    async setInitialize() {
+      if (this.isTest) {
+        console.log('TEST MODE')
+        await this.loadLocalZoid()
+      } else {
+        this.initPanel()
+      }
+    },
+    async loadLocalZoid() {
+      return new Promise(resolve => {
+        let zoid = document.createElement('script')
+        let zoidComponent = document.createElement('script')
+        zoid.async = false
+        zoidComponent.async = false
+        zoid.setAttribute('src', '/js/zoid.js')
+        zoidComponent.setAttribute('src', '/js/zoid_component.js')
+        document.head.appendChild(zoid)
+        document.head.appendChild(zoidComponent)
+        resolve()
+      })
+    },
     initPanel() {
       ;(function(w, i, d, g, e, t) {
         t = i.createElement(d)
@@ -29,31 +56,8 @@ export default {
       )
     }
   },
-  mounted() {
-    this.initPanel()
+  async mounted() {
+    await this.setInitialize()
   }
 }
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>

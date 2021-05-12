@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-grow-1 justify-content-center align-items-center">
-    <div v-if="test">
+    <div v-if="isTest">
       <a
         href="#"
         class="ml-silver-btn"
@@ -35,12 +35,10 @@ export default {
   name: 'Home',
   components: {},
   mixins: [MixinChangePanelPage],
-  data: () => ({
-    test: false
-  }),
   computed: {
     ...mapState({
-      showPanelBalance: state => state.panel.showPanelBalance
+      showPanelBalance: state => state.panel.showPanelBalance,
+      isTest: state => state?.app?.testMode ?? true
     })
   },
   methods: {

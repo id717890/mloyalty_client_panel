@@ -86,7 +86,8 @@ export default {
     ...mapState({
       showPanel: state => state.panel.show,
       showPanelBalance: state => state.panel.showPanelBalance,
-      config: state => state.app.config
+      config: state => state.app.config,
+      isTest: state => state?.app?.testMode ?? true
     })
   },
   data() {
@@ -143,13 +144,19 @@ export default {
     },
     initWidget() {
       this.$refs['widget-wrapper'].innerHTML = null
-      console.log('initWidget')
       MloyaltyWidget({
         code: 'Купить',
         onHide: value => {
           this.$set(this, 'isShowMobileCloseBtn', !value)
         }
       }).render('#widget-wrapper')
+    },
+    setInitialize() {
+      if (this.isTest) {
+        setTimeout(() => {
+          this.initWidget()
+        }, 2000)
+      }
     }
   },
   watch: {
@@ -160,9 +167,9 @@ export default {
     }
   },
   mounted() {
+    this.setInitialize()
     // this[panelTypes.TOGGLE_PANEL](true)
     // console.log(this.isMobile())
-    // this.initWidget()
     // this.initWidgetBalance()
     // setTimeout(() => {
     //   let newVal = this.counter + 1

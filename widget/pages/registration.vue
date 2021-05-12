@@ -62,7 +62,7 @@
 import { mask } from 'vue-the-mask'
 import verifyTypes from '@/store/verify/types'
 import verificationCode from '@/components/VerificationCode'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 import Constants from '~/helpers/constants'
 
 const COMMUNICATION_TYPE = 1
@@ -83,6 +83,9 @@ export default {
     successVerification: false,
   }),
   computed: {
+    ...mapState({
+      testMode: (state) => state?.app?.testMode,
+    }),
     channelType() {
       return Constants?.SEND_METHOD?.SMS?.COMMUNICATION_TYPE // = 1
     },
@@ -101,12 +104,15 @@ export default {
     },
   },
   mounted() {
-    this.$refs?.phone?.focus()
-    // this.successVerificationProcess()
+    this.setInitialize()
   },
   methods: {
     ...mapActions('verify', [verifyTypes.REQUEST_CODE]),
     ...mapMutations('verify', [verifyTypes.SET_PHONE]),
+    setInitialize() {
+      this.phone = this.testMode ? 9224870500 : null
+      this.$refs?.phone?.focus()
+    },
     requestCode() {
       const phone = this.clearPhone
       const communicationtype = COMMUNICATION_TYPE

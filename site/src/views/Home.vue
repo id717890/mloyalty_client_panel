@@ -27,14 +27,9 @@
 // @ is an alias to /src
 import { mapMutations, mapState } from 'vuex'
 import panelTypes from '@/store/panel/types'
-import verificationTypes from '@/store/verificationCode/types'
-import { START_PAGE } from '@/helpers/const/widgetPage'
-import MixinChangePanelPage from '@/helpers/mixins/panel/changePage'
-
 export default {
   name: 'Home',
   components: {},
-  mixins: [MixinChangePanelPage],
   computed: {
     ...mapState({
       showPanelBalance: state => state.panel.showPanelBalance,
@@ -42,11 +37,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations('panel', [
-      panelTypes.TOGGLE_PANEL,
-      panelTypes.TOGGLE_PANEL_BALANCE
-    ]),
-    ...mapMutations('verificationCode', [verificationTypes.SET_TEST_CODE]),
+    ...mapMutations('panel', [panelTypes.TOGGLE_PANEL]),
     updateProps() {
       widgetZoidComponent.updateProps({ code: 12345 })
     },
@@ -74,12 +65,8 @@ export default {
     // },
     newCertificate() {
       this[panelTypes.TOGGLE_PANEL](true)
-      this.changePanelPage(START_PAGE)
-    },
-    balance() {
-      this.togglePanelBalance()
-    },
-    balanceWidget() {}
+      // this.changePanelPage(START_PAGE)
+    }
   }
 }
 </script>

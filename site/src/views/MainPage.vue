@@ -74,14 +74,8 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import panelTypes from '@/store/panel/types'
-import MixinChangePanelPage from '@/helpers/mixins/panel/changePage'
-// import Balance from '../components/Panel/Pages/Balance'
 
 export default {
-  mixins: [MixinChangePanelPage],
-  components: {
-    // Balance
-  },
   computed: {
     ...mapState({
       showPanel: state => state.panel.show,
@@ -116,7 +110,6 @@ export default {
       // if (this.showPanel === false) {
       // }
       this[panelTypes.TOGGLE_PANEL](isShow)
-      // this.changePanelPage(null)
     },
     togglePanelBalance() {
       this[panelTypes.TOGGLE_PANEL_BALANCE](!this.showPanelBalance)

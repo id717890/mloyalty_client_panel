@@ -1,7 +1,0 @@
-export const SENDING_METHOD_TELEGRAM = 'telegram'
-export const SENDING_METHOD_WHATSAPP = 'whatsapp'
-export const SENDING_METHOD_VIBER = 'viber'
-export const SENDING_METHOD_SMS = 'sms'
-
-export const VERIFICATION_BY_SMS = 'VERIFICATION_BY_SMS'
-export const VERIFICATION_BY_MESSENGER = 'VERIFICATION_BY_MESSENGER'

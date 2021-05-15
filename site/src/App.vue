@@ -51,8 +51,14 @@ export default {
         window,
         document,
         'script',
-        'https://mloyalty-widget.s3-eu-west-1.amazonaws.com/0.4.1/mloyalty-widget.bundle.min.js',
-        { code: '*', url: 'http://lkvidget.lctest.ru/' }
+        'https://mloyalty-widget.s3-eu-west-1.amazonaws.com/0.6.0/mloyalty-widget.bundle.min.js',
+        {
+          code: '*',
+          url: 'http://lkvidget.lctest.ru/',
+          debug: true,
+          metadata: { client_mloyalty: 2, client_ishop: 1234 },
+          sourceurl: 'http://lk.lctest.ru/'
+        }
       )
     }
   },

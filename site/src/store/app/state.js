@@ -1,5 +1,5 @@
 export default {
-  testMode: true,
+  testMode: false,
   loading: false,
   // code: null,
   config: {

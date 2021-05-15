@@ -9,6 +9,7 @@ export default async ({ store, redirect }) => {
   if (metadata) store?.commit(`app/${appTypes.SET_METADATA}`, metadata)
   if (code) store?.commit(`app/${appTypes.SET_SITECODE}`, code)
   if (sourceurl) store?.commit(`app/${appTypes.SET_SOURCEURL}`, sourceurl)
+  console.log('INIT', code, sourceurl, metadata)
   const accessToken = store?.state?.auth?.accessToken
   const refreshToken = store?.state?.auth?.refreshToken
   // Определяем наличие accessToken и refreshToken в хранилище

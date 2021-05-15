@@ -5,6 +5,7 @@ export default {
     state.mainWidgetConfig = payload
   },
   [types.SET_SITECODE]: (state, payload) => {
+    console.log('NEW CODE', payload)
     state.sitecode = payload
   },
   [types.SET_METADATA]: (state, payload) => {

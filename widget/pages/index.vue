@@ -117,7 +117,9 @@ export default {
     setInitialize() {
       // this.phone = this.testMode ? 9224870500 : null
       this.phone = this.testMode ? 9527247500 : null
-      this.$refs?.phone?.focus()
+      this.$nextTick(() => {
+        this.$refs?.phone?.focus()
+      })
     },
     requestCode() {
       const phone = this.clearPhone

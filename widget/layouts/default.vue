@@ -16,7 +16,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import appTypes from '~/store/app/types'
+
 export default {
   middleware: ['jwtauth', 'widgetConfig'],
+  computed: {
+    ...mapState({
+      code: (state) => state?.app?.sitecode,
+    }),
+  },
+  mounted() {
+    window?.xprops?.onProps(async (newProps) => {
+      const code = newProps?.code
+      if (code && code !== this.code && code !== '*') {
+        console.log('onProps event', newProps)
+        await this.$store?.commit(`app/${appTypes.SET_SITECODE}`, code)
+      }
+    })
+  },
 }
 </script>

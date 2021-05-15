@@ -7,6 +7,7 @@
         @click.prevent="togglePanel"
         style="font-size: 14px;"
       >
+        <v-icon>mdi-check</v-icon>
         Личный кабинет
       </a>
     </div>
@@ -14,9 +15,10 @@
       <button
         type="button"
         class="ml-silver-btn w100"
-        style="font-size: 14px;"
+        style="font-size: 16px;"
         @click="openSidePanel"
       >
+        <v-icon>mdi-bag-checked</v-icon>
         Личный кабинет
       </button>
     </div>
@@ -39,7 +41,7 @@ export default {
     //   widgetZoidComponent.updateProps({ code: 12345 })
     // },
     openSidePanel() {
-      MloyaltyWidget.open('Купить')
+      MloyaltyWidget.open('Личный кабинет')
       // MloyaltySidePanel.show('mloyalty-side-panel-widget')
     },
     togglePanel() {

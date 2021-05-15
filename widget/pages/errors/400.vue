@@ -1,7 +1,8 @@
 <template>
   <div>
     <h3>ERROR</h3>
-    <div>{{ message }}</div>
+    <div v-if="message" class="mb-4">{{ message }}</div>
+    <div v-if="subMessage">{{ subMessage }}</div>
   </div>
 </template>
 
@@ -11,6 +12,9 @@ export default {
   computed: {
     message() {
       return this.$route.params?.message
+    },
+    subMessage() {
+      return this.$route.params?.subMessage
     },
   },
   mounted() {

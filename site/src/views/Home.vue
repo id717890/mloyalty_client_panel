@@ -35,9 +35,9 @@ export default {
   },
   methods: {
     ...mapMutations('panel', [panelTypes.TOGGLE_PANEL]),
-    updateProps() {
-      widgetZoidComponent.updateProps({ code: 12345 })
-    },
+    // updateProps() {
+    //   widgetZoidComponent.updateProps({ code: 12345 })
+    // },
     openSidePanel() {
       MloyaltyWidget.open('Купить')
       // MloyaltySidePanel.show('mloyalty-side-panel-widget')

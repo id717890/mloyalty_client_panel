@@ -1,6 +1,9 @@
 import ApiBase from './_ApiBase'
 
 export default {
+  requestCodeForClient(data) {
+    return ApiBase.post('api/client/GetSendVerificationCode', data)
+  },
   /**
    * {
    * "sitecode": "{type:1}{oper:7}{part:12}{pcode:pobeda1}{tok:1234567891011}",// уникальный код виджета
@@ -18,5 +21,8 @@ export default {
   },
   sendCode(data) {
     return ApiBase.post('api/sertcard/ConfirmCode', data)
+  },
+  sendCodeForClient(data) {
+    return ApiBase.post('api/client/GetConfirmCode', data)
   },
 }

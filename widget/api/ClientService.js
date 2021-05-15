@@ -1,6 +1,9 @@
 import ApiBase from './_ApiBase'
 
 export default {
+  clientCreateIshop(data) {
+    return ApiBase.post('api/client/ClientCreateIshop', data)
+  },
   clientCreate(data) {
     return ApiBase.post('api/client/ClientCreate', data)
   },

@@ -1,32 +1,14 @@
 import AuthService from '@/api/AuthService'
-// import ConfigService from '@/api/ConfigService'
-// import store from '@/store'
-// import appTypes from '@/store/app/types'
+import appTypes from '~/store/app/types'
 
-// const getSiteConfig = async () => {
-//   const operator = store?.state?.auth?.decodeJwt?.oper
-//   const decodeToken = store?.state?.auth?.decodeJwt?.token
-//   const siteCode = store?.getters['app/getSiteCode']
-//   if (!operator || !decodeToken || !siteCode) {
-//     next('/access-denied')
-//   }
-//   const data = {
-//     Operator: operator,
-//     Token: decodeToken,
-//     SiteCode: siteCode
-//   }
-//   return ConfigService.getSiteConfig(data).then(response => {
-//     if (response.status === 200) {
-//       const { data } = response
-//       delete data.ErrorCode
-//       delete data.Message
-//       store.commit(`app/${appTypes.SET_SITECONFIG}`, data)
-//       console.log('api getSiteConfig')
-//     }
-//   })
-// }
 export default async ({ store, redirect }) => {
   console.log('jwtauth')
+  const metadata = window?.xprops?.metadata
+  const code = window?.xprops?.code
+  const sourceurl = window?.xprops?.sourceurl
+  if (metadata) store?.commit(`app/${appTypes.SET_METADATA}`, metadata)
+  if (code) store?.commit(`app/${appTypes.SET_SITECODE}`, code)
+  if (sourceurl) store?.commit(`app/${appTypes.SET_SOURCEURL}`, sourceurl)
   const accessToken = store?.state?.auth?.accessToken
   const refreshToken = store?.state?.auth?.refreshToken
   // Определяем наличие accessToken и refreshToken в хранилище

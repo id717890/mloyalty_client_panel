@@ -1,30 +1,26 @@
 import VerifyService from '@/api/VerifyService'
 import types from './types'
-// import router from '~/router'
+import clientTypes from '~/store/client/types'
+import errorHandler from '~/helpers/errorHandler'
 
 export default {
-  async [types.REQUEST_CODE](
-    { state, rootState, commit, getters, rootGetters },
-    { phone, communicationtype, codeType }
-  ) {
+  async [types.REQUEST_CODE]({ rootState, rootGetters }, { phone }) {
     const sitecode = rootGetters['app/getSiteCode']
-    const operator = rootState?.auth?.decodeJwt?.oper
+    const operator = rootGetters['app/getOperator']
+    const partner = rootGetters['app/getPartner']
+    const poscode = rootState?.auth?.decodeJwt?.poscode
     const token = rootState?.auth?.decodeJwt?.token
-    // const name = 'Zamir'
-    const email = 'jusupovz@gmail.com'
-    // const phone = payload?.phone
-    // const communicationtype = payload?.communicationType
+    const codetype = 6 //  тип кода подтверждения, который запрашивается (6 значит авторизация в виджете лояльности)
     const data = {
       sitecode,
-      operator,
       token,
-      // name,
-      email,
+      operator,
+      partner,
+      poscode,
       phone,
-      communicationtype,
-      codeType,
+      codetype,
     }
-    return VerifyService.requestCode(data)
+    return VerifyService.requestCodeForClient(data)
       .then((response) => {
         if (
           response?.status === 200 &&
@@ -34,56 +30,52 @@ export default {
           return Promise.resolve()
         } else {
           console.log('error status')
-          this.$router.push({
-            name: 'Errors-400',
-            params: { message: 'Ошибка при отправке кода на телефон' },
-          })
+          return errorHandler.throw(response?.data?.Message)
         }
       })
       .catch((error) => {
         console.log('error catch')
-        this.$router.push({
-          name: 'Errors-400',
-          params: {
-            message: 'Ошибка при отправке кода на телефон',
-            subMessage: error,
-          },
-        })
-        // router.push({
-        //   name: 'Error',
-        //   params: {
-        //     message: 'Ошибка при отправке кода на телефон',
-        //     subMessage: error,
-        //   },
-        // })
+        return errorHandler.throw(error)
       })
   },
   [types.SEND_VERIFICATIONCODE_VIA_SMS]: async (
-    { state, rootState, commit, getters, rootGetters },
+    { commit, dispatch },
     payload
   ) => {
-    const sitecode = rootGetters['app/getSiteCode']
-    const operator = rootState?.auth?.decodeJwt?.oper
-    const token = rootState?.auth?.decodeJwt?.token
-    const communicationtype = 1
-    const { code } = payload
-    const { phone } = payload
+    const { code, phone } = payload
     const data = {
-      sitecode,
-      operator,
-      token,
       phone,
-      communicationtype,
       code,
     }
     commit(types.INIT_VERIFICATION_CODE_PROCESS, true)
-    return VerifyService.sendCode(data)
-      .then((response) => {
+    return VerifyService.sendCodeForClient(data)
+      .then(async (response) => {
         if (
           response?.status === 200 &&
           !response?.data?.Message &&
           response?.data?.ErrorCode === 0
         ) {
+          const clientId = response?.data?.Client
+          if (!clientId) {
+            console.log('CLIENT ID IS NULL', phone)
+            await dispatch(
+              `client/${clientTypes.CLIENT_CREATE_ACTION_2}`,
+              phone,
+              {
+                root: true,
+              }
+            )
+          } else {
+            console.log('await SET_CLIENT_ID')
+            commit(
+              `client/${clientTypes.SET_CLIENT_ID}`,
+              response?.data?.Client,
+              {
+                root: true,
+              }
+            )
+          }
+
           return Promise.resolve(true)
         } else {
           return Promise.resolve(false)

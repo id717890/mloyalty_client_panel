@@ -128,17 +128,15 @@ export default {
         return false
       }
     },
-    initWidgetBalance() {
-      this.$refs['widget-balance-wrapper'].innerHTML = null
-      MloyaltyWidget({
-        code: 'Баланс',
-        onHide: () => {}
-      }).render('#widget-balance-wrapper')
-    },
     initWidget() {
       this.$refs['widget-wrapper'].innerHTML = null
       MloyaltyWidget({
-        code: 'Купить',
+        sourceurl: 'http://localhost:8080',
+        code: 'Личный кабинет',
+        metadata: {
+          client_mloyalty: 2,
+          client_ishop: 1234
+        },
         onHide: value => {
           this.$set(this, 'isShowMobileCloseBtn', !value)
         }
@@ -148,7 +146,7 @@ export default {
       if (this.isTest) {
         setTimeout(() => {
           this.initWidget()
-        }, 2000)
+        }, 500)
       }
     }
   },
@@ -163,7 +161,6 @@ export default {
     this.setInitialize()
     // this[panelTypes.TOGGLE_PANEL](true)
     // console.log(this.isMobile())
-    // this.initWidgetBalance()
     // setTimeout(() => {
     //   let newVal = this.counter + 1
     //   this.$set(this, 'counter', newVal)

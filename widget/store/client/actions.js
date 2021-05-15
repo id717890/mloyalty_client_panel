@@ -4,6 +4,24 @@ import ClientService from '~/api/ClientService'
 const PAGE_SIZE = 1000
 
 export default {
+  [types.CLIENT_CREATE_ISHOP_ACTION]: async ({
+    rootGetters,
+    state,
+    rootState,
+  }) => {
+    // const operator = rootState?.auth?.decodeJwt?.oper
+    const operator = rootGetters['app/getOperator']
+    const token = rootState?.auth?.decodeJwt?.token
+    const clientId = state?.clientId
+    const clientIshop = rootGetters['app/getClientIshop']
+    const request = { operator, token, clientId, clientIshop }
+    if (clientIshop && clientId) {
+      // const { data, status } = await ClientService.clientCreateIshop(request)
+      // console.log(data, status)
+      await ClientService.clientCreateIshop(request)
+      console.log('success api')
+    }
+  },
   [types.LOGIN_LK]: async ({ state, dispatch }) => {
     try {
       dispatch('app/SET_APP_LOADING', true, { root: true })
@@ -108,6 +126,49 @@ export default {
         throw new Error('GET_CLIENT_CARD', response)
       }
     })
+  },
+  [types.CLIENT_CREATE_ACTION_2]: async ({ rootGetters, commit }, phone) => {
+    const operator = rootGetters['app/getOperator']
+    const partner = rootGetters['app/getPartner']
+    const poscode = rootGetters['app/getPosCode']
+    const request = { operator, partner, poscode, phone }
+    console.log('await CLIENT_CREATE_ACTION_2')
+    const { data, status } = await ClientService.clientCreate(request)
+    if (status === 200 && !data?.Message && data?.ErrorCode === 0) {
+      commit(types.SET_CLIENT_ID, data?.Client)
+    }
+    console.log(data, status)
+    console.log('finish CLIENT_CREATE_ACTION_2')
+    // if (
+    //   createClientResponse?.status === 200 &&
+    //   createClientResponse?.data?.ErrorCode === 0 &&
+    //   !createClientResponse?.data?.Message
+    // ) {
+    //   return ClientService.getClientInfo({ operator, phone }).then(
+    //     async (response) => {
+    //       if (
+    //         response?.status === 200 &&
+    //         !response?.data?.ErrorCode &&
+    //         !response?.data?.Message
+    //       ) {
+    //         delete response?.data?.Message
+    //         delete response?.data?.ErrorCode
+    //         commit(types.SET_CLIENT_INFO, response?.data)
+    //         return response?.data
+    //       } else {
+    //         // eslint-disable-next-line no-undef
+    //         // $nuxt._router.push({ name: 'errors-400' })
+    //         throw new Error(
+    //           'CLIENT_CREATE_ACTION, after create' + response?.data?.Message
+    //         )
+    //       }
+    //     }
+    //   )
+    // } else {
+    //   throw new Error(
+    //     'CLIENT_CREATE_ACTION:' + createClientResponse?.data?.Message
+    //   )
+    // }
   },
   [types.CLIENT_CREATE_ACTION]: async ({ rootState, commit }, { phone }) => {
     const { oper: operator, partner, poscode } = rootState?.auth?.decodeJwt

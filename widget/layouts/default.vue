@@ -17,12 +17,6 @@
 
 <script>
 export default {
-  components: {},
-  directives: {},
-  data: () => ({}),
-  computed: {},
-  watch: {},
-  mounted() {},
-  methods: {},
+  middleware: ['jwtauth', 'widgetConfig'],
 }
 </script>

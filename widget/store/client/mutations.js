@@ -1,6 +1,9 @@
 import types from './types'
 
 export default {
+  [types.SET_CLIENT_ID]: (state, payload) => {
+    state.clientId = payload
+  },
   [types.SET_CLIENT_INFO]: (state, payload) => {
     state.clientInfo = payload
   },

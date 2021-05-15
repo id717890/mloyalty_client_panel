@@ -62,7 +62,8 @@ export default {
   vuetify: {
     customVariables: ['~/assets/scss/variables.scss'],
     // optionsPath: './vuetify.options.js', // vuetify option like theme.
-    // defaultAssets: false,
+    defaultAssets: false,
+    // iconfont: 'md',
     theme: {
       dark: false,
       themes: {

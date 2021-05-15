@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
+// $material-design-icons-font-directory-path: '~material-design-icons-iconfont/dist/fonts/';
 @import 'bootstrap/scss/bootstrap-grid.scss';
 @import './themes/default.scss';
 @import './text.scss';
-
+// @import 'material-design-icons-iconfont/src/material-design-icons';
 @import './ui/ml-btns.scss';
 @import './ui/ml-inputs.scss';
+// @import 'material-design-icons-iconfont/dist/material-design-icons.css';
+@import '@mdi/font/css/materialdesignicons.css';
 
 .test {
   // border: 1px solid green;

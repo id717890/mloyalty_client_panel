@@ -4,15 +4,12 @@ import ClientService from '~/api/ClientService'
 const PAGE_SIZE = 1000
 
 export default {
-  [types.CLIENT_CREATE_ISHOP_ACTION]: async ({
-    rootGetters,
-    state,
-    rootState,
-  }) => {
+  [types.CLIENT_CREATE_ISHOP_ACTION]: async ({ rootGetters, rootState }) => {
     // const operator = rootState?.auth?.decodeJwt?.oper
     const operator = rootGetters['app/getOperator']
     const token = rootState?.auth?.decodeJwt?.token
-    const clientId = state?.clientId
+    const clientId = rootGetters['app/getClientMloyalty']
+    // state?.clientId
     const clientIshop = rootGetters['app/getClientIshop']
     const request = { operator, token, clientId, clientIshop }
     if (clientIshop && clientId) {
@@ -131,10 +128,24 @@ export default {
     const operator = rootGetters['app/getOperator']
     const partner = rootGetters['app/getPartner']
     const poscode = rootGetters['app/getPosCode']
-    const request = { operator, partner, poscode, phone }
+    const allowSms = 1
+    const allowEmail = 1
+    const allowPush = 1
+    const agreePersonalData = 1
+    const request = {
+      operator,
+      partner,
+      poscode,
+      phone,
+      allowSms,
+      allowEmail,
+      allowPush,
+      agreePersonalData,
+    }
     console.log('await CLIENT_CREATE_ACTION_2')
     const { data, status } = await ClientService.clientCreate(request)
     if (status === 200 && !data?.Message && data?.ErrorCode === 0) {
+      console.log('CLIENT ID', data?.Client)
       commit(types.SET_CLIENT_ID, data?.Client)
     }
     console.log(data, status)
@@ -216,11 +227,17 @@ export default {
       )
     }
   },
-  [types.GET_CLIENT_INFO]: async ({ state, dispatch, rootState, commit }) => {
-    const { oper: operator } = rootState?.auth?.decodeJwt
-    // const operator = state?.operator
+  [types.GET_CLIENT_INFO]: async ({
+    dispatch,
+    commit,
+    rootGetters,
+    rootState,
+  }) => {
+    const operator = rootGetters['app/getOperator']
     const phone = rootState?.verify?.phone
-    return ClientService.getClientInfo({ operator, phone }).then(
+    const client = rootGetters['app/getClientMloyalty']
+    console.log('ROOTGET', rootGetters)
+    return ClientService.getClientInfo({ operator, client }).then(
       async (response) => {
         if (response?.status === 200) {
           if (!response?.data?.ErrorCode && !response?.data?.Message) {
@@ -232,6 +249,7 @@ export default {
             response?.data?.ErrorCode === 4 &&
             response?.data?.Message === 'Номер телефона не найден'
           ) {
+            // TODO ????
             await dispatch(types.CLIENT_CREATE_ACTION, { phone })
           }
         } else {

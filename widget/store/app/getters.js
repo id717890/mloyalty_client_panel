@@ -1,6 +1,6 @@
 export default {
-  getClientMloyalty: (state) => {
-    return state?.metadata?.client_mloyalty
+  getClientMloyalty: (state, getters, rootState) => {
+    return rootState?.client?.clientId ?? state?.metadata?.client_mloyalty
   },
   getClientIshop: (state) => {
     return state?.metadata?.client_ishop
@@ -8,6 +8,9 @@ export default {
   getPosCode: (state) => {
     // return 'MilanaSilv'
     return state?.mainWidgetConfig?.RequestData?.PosCode
+  },
+  getToken: (state) => {
+    return state?.mainWidgetConfig?.RequestData?.Token
   },
   getPartner: (state) => {
     // return 39

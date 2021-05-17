@@ -9,6 +9,7 @@ export default () => ({
   // client_ishop: 1234,
   // },
   testMode: false,
+  // testMode: true,
   loading: false,
   panelBurger: {
     width: 448,

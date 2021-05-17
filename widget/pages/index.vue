@@ -1,5 +1,11 @@
 <template>
-  <div class="px-8">
+  <div
+    v-if="loading"
+    class="d-flex flex-column justify-content-center align-items-center flex-grow-1"
+  >
+    <MlLoading />
+  </div>
+  <div v-else class="px-8">
     <div class="ml-text-16-24-600 mt-12 mb-2">Подтвердите номер телефона</div>
     <div class="ml-title-14-20 mb-6">
       Для регистрации в программе лояльности Вам необходимо подтвердить номер
@@ -62,7 +68,7 @@
 import { mask } from 'vue-the-mask'
 import verifyTypes from '@/store/verify/types'
 import verificationCode from '@/components/VerificationCode'
-import { mapActions, mapMutations, mapState } from 'vuex'
+import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
 import clientTypes from '~/store/client/types'
 import Constants from '~/helpers/constants'
 
@@ -78,12 +84,14 @@ export default {
   layout: 'default',
   // middleware: ['jwtauth'],
   data: () => ({
+    loading: false,
     // phone: 9224870500,
     phone: null,
     isSentVerificationCode: false, // Признак того что отправили код, т.е. нажали на кнопку "Подтвердить"
     successVerification: false,
   }),
   computed: {
+    ...mapGetters('app', ['getClientMloyalty']),
     ...mapState({
       testMode: (state) => state?.app?.testMode,
     }),
@@ -104,8 +112,8 @@ export default {
         .replaceAll('-', '')
     },
   },
-  mounted() {
-    this.setInitialize()
+  async mounted() {
+    await this.setInitialize()
   },
   methods: {
     ...mapActions('verify', [verifyTypes.REQUEST_CODE]),
@@ -114,12 +122,20 @@ export default {
       clientTypes.CLIENT_CREATE_ACTION_2,
     ]),
     ...mapMutations('verify', [verifyTypes.SET_PHONE]),
-    setInitialize() {
-      // this.phone = this.testMode ? 9224870500 : null
-      this.phone = this.testMode ? 9527247500 : null
-      this.$nextTick(() => {
-        this.$refs?.phone?.focus()
-      })
+    async setInitialize() {
+      this.loading = true
+      console.log(this.getClientMloyalty)
+      if (this.getClientMloyalty) {
+        await this[clientTypes.CLIENT_CREATE_ISHOP_ACTION]()
+        this.$router.push({ name: 'dashboard' })
+      } else {
+        // this.phone = this.testMode ? 9224870500 : null
+        this.phone = this.testMode ? 9527247500 : null
+        this.loading = false
+        this.$nextTick(() => {
+          this.$refs?.phone?.focus()
+        })
+      }
     },
     requestCode() {
       const phone = this.clearPhone

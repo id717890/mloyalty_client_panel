@@ -10,7 +10,6 @@ export default {
     const partner = rootGetters['app/getPartner']
     const poscode = rootGetters['app/getPosCode']
     const token = rootGetters['app/getToken']
-    console.log('REQUEST', rootState?.app)
     const codetype = 6 //  тип кода подтверждения, который запрашивается (6 значит авторизация в виджете лояльности)
     const data = {
       sitecode,

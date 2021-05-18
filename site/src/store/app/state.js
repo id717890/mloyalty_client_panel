@@ -1,6 +1,6 @@
 export default {
-  // testMode: false,
-  testMode: true,
+  testMode: false,
+  // testMode: true,
   loading: false,
   // code: null,
   config: {

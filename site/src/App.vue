@@ -4,7 +4,17 @@
 
 <script>
 import { mapState } from 'vuex'
+// import config from '@/config'
 export default {
+  data: () => ({
+    panelCfg: {
+      code: '*',
+      url: 'http://lkvidget.lctest.ru/',
+      debug: true,
+      metadata: { client_mloyalty: 2, client_ishop: 1234 },
+      sourceurl: 'http://lk.lctest.ru/'
+    }
+  }),
   computed: {
     ...mapState({
       isTest: state => state?.app?.testMode ?? true
@@ -12,12 +22,19 @@ export default {
   },
   methods: {
     async setInitialize() {
-      if (this.isTest) {
-        console.log('TEST MODE')
-        await this.loadLocalZoid()
-      } else {
-        this.initPanel()
-      }
+      await fetch(process.env.BASE_URL + 'config.json').then(response => {
+        response.json().then(async x => {
+          this.panelCfg = x
+          // this.$set(this, 'panelCfg', x)
+          console.log('JSON CFG', x)
+          if (this.isTest) {
+            console.log('TEST MODE')
+            await this.loadLocalZoid()
+          } else {
+            this.initPanel()
+          }
+        })
+      })
     },
     async loadLocalZoid() {
       return new Promise(resolve => {
@@ -33,6 +50,8 @@ export default {
       })
     },
     initPanel() {
+      const panel = this.panelCfg
+      console.log('panel', panel)
       ;(function(w, i, d, g, e, t) {
         t = i.createElement(d)
         t.async = 1
@@ -52,13 +71,16 @@ export default {
         document,
         'script',
         'https://mloyalty-widget.s3-eu-west-1.amazonaws.com/0.6.0/mloyalty-widget.bundle.min.js',
-        {
-          code: '*',
-          url: 'http://lkvidget.lctest.ru/',
-          debug: true,
-          metadata: { client_mloyalty: 2, client_ishop: 1234 },
-          sourceurl: 'http://lk.lctest.ru/'
-        }
+        // {
+        //   // code: '*',
+        //   // url: 'http://lkvidget.lctest.ru/',
+        //   // debug: true,
+        //   // metadata: { client_mloyalty: 2, client_ishop: 1234 },
+        //   // sourceurl: 'http://lk.lctest.ru/'
+        //   // ...config
+        //   ...this.panelCfg
+        // }
+        panel
       )
     }
   },

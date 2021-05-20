@@ -174,3 +174,21 @@
     margin-left: 12px;
   }
 }
+
+.ml-rules {
+  p {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: #000000;
+    opacity: 0.7;
+  }
+
+  .ml-rules_item {
+    font-weight: bold;
+  }
+
+  .ml-rules_text {
+    font-weight: normal;
+  }
+}

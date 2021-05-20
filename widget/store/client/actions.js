@@ -265,7 +265,6 @@ export default {
     const operator = rootGetters['app/getOperator']
     const phone = rootState?.verify?.phone
     const client = rootGetters['app/getClientMloyalty']
-    console.log('ROOTGET', rootGetters)
     return ClientService.getClientInfo({ operator, client }).then(
       async (response) => {
         if (response?.status === 200) {

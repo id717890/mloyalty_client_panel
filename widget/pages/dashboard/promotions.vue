@@ -1,30 +1,30 @@
 <template>
   <div>
     <MlHeaderPage title="Акции" />
-    <div class="px-12 py-4 d-flex flex-column">
+    <MlLoading v-if="loading" class="pt-5" />
+    <div v-else class="px-10 py-4 d-flex flex-column">
       <div
-        v-for="item in items"
+        v-for="item in promos"
         :key="item.id"
         :ref="'promo' + item.id"
         class="ml-promo-block mb-4"
       >
-        <div
-          class="ml-promo-block_img"
-          :class="{ 'ml-promo-block_img_sm': item.size === 'sm' }"
-        >
-          <img :src="item.img" alt="" />
+        <div class="ml-promo-block_img">
+          <img :src="item.logo" alt="" />
         </div>
         <div class="ml-promo-block_title px-5 ml-text-18-22-900 pt-4 pb-3">
-          {{ item.title }}
+          {{ item.tagline }}
         </div>
-        <div class="ml-promo-block_subtitle px-5 ml-text-14-16-700 pb-4">
+        <!-- <div class="ml-promo-block_subtitle px-5 ml-text-14-16-700 pb-4">
           {{ item.subtitle }}
-        </div>
+        </div> -->
         <div
           :ref="'promo-text' + item.id"
           class="ml-promo-block_text ml-text-14-22 mx-5 pt-4"
         >
-          {{ item.text }}
+          <pre class="ml-text-14-22" style="white-space: pre-line">
+            {{ item.description }}
+          </pre>
         </div>
         <div class="px-5 text-right mb-3">
           <v-btn
@@ -43,9 +43,13 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+import otherTypes from '~/store/other/types'
+
 export default {
   layout: 'dashboard',
   data: () => ({
+    loading: false,
     items: [
       {
         id: 1,
@@ -67,7 +71,18 @@ export default {
       },
     ],
   }),
+  computed: {
+    ...mapState({
+      promos: (state) => state?.other?.promo,
+    }),
+  },
+  async mounted() {
+    this.loading = true
+    await this[otherTypes.GET_PROMO_ACTION]()
+    this.loading = false
+  },
   methods: {
+    ...mapActions('other', [otherTypes.GET_PROMO_ACTION]),
     toggleDetails(id) {
       const elPromo = this.$refs['promo' + id][0]
       elPromo.classList.toggle('active')

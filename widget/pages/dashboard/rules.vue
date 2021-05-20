@@ -1,7 +1,7 @@
 <template>
   <div>
     <MlHeaderPage title="Правила" />
-    <div class="px-12 py-5 ml-rules">
+    <div class="px-10 py-5 ml-rules">
       <p class="ml-rules_item">1. Основные правила</p>
       <p class="ml-rules_text">
         1.1. Купи 2 пиццы на сумму от 2000 рублей и получи дополнительно 500

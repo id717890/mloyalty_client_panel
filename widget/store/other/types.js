@@ -1,0 +1,5 @@
+export default {
+  GET_PROMO_ACTION: 'GET_PROMO_ACTION',
+
+  SET_PROMO: 'SET_PROMO',
+}

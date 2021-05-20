@@ -6,25 +6,22 @@
       <div
         v-for="(faq, index) in faqs"
         v-else
-        :ref="'mloyalty-faq-item-' + index"
+        :ref="'ml-faq-item-' + index"
         :key="index"
-        class="mloyalty-faq-item"
+        class="ml-faq-item"
       >
-        <div class="mloyalty-question" @click="toggleFaq(index)">
+        <div class="ml-faq-item_question" @click="toggleFaq(index)">
           {{ faq.question }}
           <img
-            class="mloyalty-faq-arrow-right"
+            class="ml-faq-item_arrow-right"
             src="/image/faq-arrow-right.png"
           />
-          <img
-            class="mloyalty-faq-arrow-down"
-            src="/image/faq-arrow-down.png"
-          />
+          <img class="ml-faq-item_arrow-down" src="/image/faq-arrow-down.png" />
         </div>
         <div
           :ref="'answer-' + index"
           v-linkified:options="{ className: 'ml-link' }"
-          class="mloyalty-answer"
+          class="ml-faq-item_answer"
         >
           {{ faq.answer }}
         </div>
@@ -87,7 +84,7 @@ export default {
     },
     goToSupport() {},
     toggleFaq(id) {
-      const elFaq = this.$refs['mloyalty-faq-item-' + id][0]
+      const elFaq = this.$refs['ml-faq-item-' + id][0]
       elFaq.classList.toggle('active')
       const el = this.$refs['answer-' + id][0]
       if (el.style.maxHeight) {

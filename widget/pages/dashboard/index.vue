@@ -78,31 +78,31 @@
         <div class="ml-navs d-flex flex-column pt-4">
           <nuxt-link
             to="/dashboard/promotions"
-            class="ml-text-20-22-600 mb-5 ml-text-black2"
+            class="ml-text-18-22-500 mb-5 ml-text-black2"
           >
             Акции
           </nuxt-link>
           <nuxt-link
             to="/dashboard/history"
-            class="ml-text-20-22-600 mb-5 ml-text-black2"
+            class="ml-text-18-22-500 mb-5 ml-text-black2"
           >
             История бонусов
           </nuxt-link>
           <nuxt-link
             to="/dashboard/faq"
-            class="ml-text-20-22-600 mb-5 ml-text-black2"
+            class="ml-text-18-22-500 mb-5 ml-text-black2"
           >
             Частые вопросы
           </nuxt-link>
           <nuxt-link
             to="/dashboard/support"
-            class="ml-text-20-22-600 mb-5 ml-text-black2"
+            class="ml-text-18-22-500 mb-5 ml-text-black2"
           >
             Поддержка
           </nuxt-link>
           <nuxt-link
             to="/dashboard/rules"
-            class="ml-text-20-22-600 mb-5 ml-text-black2"
+            class="ml-text-18-22-500 mb-5 ml-text-black2"
           >
             Правила
           </nuxt-link>
@@ -241,6 +241,7 @@ export default {
     line-height: 32px;
     letter-spacing: -0.02em;
     color: #4d4d4d !important;
+    caret-color: #4d4d4d;
   }
 
   .v-text-field__details {

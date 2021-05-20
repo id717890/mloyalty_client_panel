@@ -5,9 +5,10 @@
         <div class="row h100 ma-0">
           <div
             class="col-lg-4 offset-lg-4 col-sm-12 d-flex flex-column h100 test pa-0"
+            style="background: #f6f6f6"
           >
             <Nuxt class="nuxt-router flex-grow-1" />
-            <MlFooter />
+            <!-- <MlFooter /> -->
           </div>
         </div>
       </div>

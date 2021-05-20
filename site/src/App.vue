@@ -30,26 +30,41 @@ export default {
           if (this.isTest) {
             console.log('TEST MODE')
             await this.loadLocalZoid()
+            await this.loadLocalZoidComponent()
           } else {
             this.initPanel()
           }
         })
       })
     },
-    async loadLocalZoid() {
+    async loadLocalZoidComponent() {
       return new Promise(resolve => {
-        let zoid = document.createElement('script')
+        // let zoid = document.createElement('script')
         let zoidComponent = document.createElement('script')
-        zoid.async = false
+        // zoid.async = false
         zoidComponent.async = false
-        zoid.setAttribute('src', '/js/zoid.js')
+        // zoid.setAttribute('src', '/js/zoid.js')
         zoidComponent.setAttribute('src', '/js/zoid_component.js')
-        document.head.appendChild(zoid)
+        // document.head.appendChild(zoid)
         document.head.appendChild(zoidComponent)
         resolve()
       })
     },
+    async loadLocalZoid() {
+      return new Promise(resolve => {
+        let zoid = document.createElement('script')
+        // let zoidComponent = document.createElement('script')
+        zoid.async = false
+        // zoidComponent.async = false
+        zoid.setAttribute('src', '/js/zoid.js')
+        // zoidComponent.setAttribute('src', '/js/zoid_component.js')
+        document.head.appendChild(zoid)
+        // document.head.appendChild(zoidComponent)
+        resolve()
+      })
+    },
     initPanel() {
+      // console.log('panel')
       const panel = this.panelCfg
       console.log('panel', panel)
       ;(function(w, i, d, g, e, t) {

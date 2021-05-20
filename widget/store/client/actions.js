@@ -1,5 +1,6 @@
 import types from './types'
 import ClientService from '~/api/ClientService'
+import verifyTypes from '~/store/verify/types'
 
 const PAGE_SIZE = 1000
 
@@ -41,11 +42,12 @@ export default {
       return Promise.resolve(true)
     }
   },
-  [types.GET_CLIENT_BONUSES]: async ({ state, rootState, commit }) => {
+  [types.GET_CLIENT_BONUSES]: async ({ state, rootGetters, commit }) => {
     const client = state?.clientInfo?.Id
     if (!client) throw new Error('GET_CLIENT_BONUSES: clientID is not defined')
     // const operator = state?.operator
-    const { oper: operator } = rootState?.auth?.decodeJwt
+    // const { oper: operator } = rootState?.auth?.decodeJwt
+    const operator = rootGetters['app/getOperator']
     if (!operator)
       throw new Error('GET_CLIENT_BONUSES: operatorID is not defined')
     const card = state?.clientInfo?.Card
@@ -75,11 +77,12 @@ export default {
       }
     })
   },
-  [types.GET_CLIENT_CHEQUES]: async ({ state, rootState, commit }) => {
+  [types.GET_CLIENT_CHEQUES]: async ({ state, rootGetters, commit }) => {
     const client = state?.clientInfo?.Id
     if (!client) throw new Error('GET_CLIENT_CHEQUES: clientID is not defined')
     // const operator = state?.operator
-    const { oper: operator } = rootState?.auth?.decodeJwt
+    // const { oper: operator } = rootState?.auth?.decodeJwt
+    const operator = rootGetters['app/getOperator']
     if (!operator)
       throw new Error('GET_CLIENT_CHEQUES: operatorID is not defined')
 
@@ -244,6 +247,9 @@ export default {
             delete response?.data?.Message
             delete response?.data?.ErrorCode
             commit(types.SET_CLIENT_INFO, response?.data)
+            commit(`verify/${verifyTypes.SET_PHONE}`, response?.data?.Phone, {
+              root: true,
+            })
             return response?.data
           } else if (
             response?.data?.ErrorCode === 4 &&

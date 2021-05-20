@@ -1,7 +1,7 @@
 <template>
   <div class="px-11">
     <div class="pt-3">
-      <nuxt-link to="/dashboard" class="ml-text-18-32-500">
+      <nuxt-link to="/dashboard/history" class="ml-text-18-32-500">
         <v-icon>mdi-chevron-left</v-icon>
         Назад
       </nuxt-link>

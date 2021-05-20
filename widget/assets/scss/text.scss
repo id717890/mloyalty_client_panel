@@ -8,10 +8,18 @@
 }
 
 .ml-text-13-18-500 {
-font-style: normal;
-font-weight: 500;
-font-size: 13px;
-line-height: 18px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.ml-text-13-20-700 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: 0.03em;
 }
 
 .ml-text-13-22 {
@@ -55,6 +63,24 @@ line-height: 18px;
   color: #000000;
 }
 
+.ml-text-15-24-700 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.408px;
+  color: #b2b2b2;
+}
+
+.ml-text-16-20-500 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.03em;
+  color: #f6f6f6;
+}
+
 .ml-text-16-24-600 {
   font-style: normal;
   font-weight: 600;
@@ -71,6 +97,15 @@ line-height: 18px;
   line-height: 18px;
   color: #000000;
   opacity: 0.7;
+}
+
+.ml-text-17-22 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.408px;
+  color: #999999;
 }
 
 .ml-text-18-20 {
@@ -115,6 +150,23 @@ line-height: 18px;
   color: #000000;
 }
 
+.ml-text-22-28-700 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 28px;
+  color: #4d4d4d;
+}
+
+.ml-text-24-24-600 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #4d4d4d;
+}
+
 .ml-text-24-32-600 {
   font-style: normal;
   font-weight: 600;
@@ -122,6 +174,14 @@ line-height: 18px;
   line-height: 32px;
   letter-spacing: -0.02em;
   color: #000000;
+}
+
+.ml-text-28-34-700 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 34px;
+  color: #4d4d4d;
 }
 
 .ml-text-32-40-600 {
@@ -150,5 +210,13 @@ line-height: 18px;
 }
 
 .ml-text-grey1 {
-color: #B3B3B3;
+  color: #b3b3b3;
+}
+
+.ml-text-grey2 {
+  color: #999999;
+}
+
+.ml-text-black2 {
+  color: #4d4d4d !important;
 }

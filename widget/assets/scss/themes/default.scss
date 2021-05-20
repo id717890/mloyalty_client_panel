@@ -15,12 +15,18 @@
 }
 
 .ml-client-info {
-  padding: 30px 46px 20px;
-  border-bottom: 1px solid #e6e6e6;
+  // padding: 30px 46px 20px;
+  // border-bottom: 1px solid #e6e6e6;
+  padding: 40px 45px 0;
+  flex-grow: 1;
 }
 
 .ml-client-orders {
   padding: 30px 46px 20px;
+}
+
+.ml-edit-fio-btn {
+  background-color: #ebebeb;
 }
 
 .ml-order-block {
@@ -88,4 +94,15 @@
   height: 60px;
   line-height: 60px;
   border-top: 1px solid #e6e6e6;
+}
+
+.ml-white-block {
+  background-color: white;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.ml-controlls {
+  border-top: 1px solid #e6e6e6;
+  padding: 13px 47px;
 }

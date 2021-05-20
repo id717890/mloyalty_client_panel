@@ -9,15 +9,15 @@
           <div
             class="col-lg-4 offset-lg-4 col-sm-12 d-flex flex-column h100 test pa-0"
           >
-            <a href="#" class="ml-burger" @click.prevent="toggleBurger">
+            <!-- <a href="#" class="ml-burger" @click.prevent="toggleBurger">
               <img src="~/static/image/burger.svg" alt="" />
-            </a>
+            </a> -->
             <Nuxt class="nuxt-router flex-grow-1" />
-            <MlFooter />
+            <!-- <MlFooter /> -->
           </div>
         </div>
       </div>
-      <v-navigation-drawer
+      <!-- <v-navigation-drawer
         :value="burgerShow"
         class="elevation-0"
         hide-overlay
@@ -28,7 +28,7 @@
         right
       >
         <burger-layout />
-      </v-navigation-drawer>
+      </v-navigation-drawer> -->
     </v-main>
   </v-app>
 </template>
@@ -36,11 +36,11 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import appTypes from '~/store/app/types'
-import burgerLayout from '~/components/Burger/Layout'
+// import burgerLayout from '~/components/Burger/Layout'
 import MlLoading from '~/components/UI/MlLoading'
 
 export default {
-  components: { burgerLayout, MlLoading },
+  components: { MlLoading },
   middleware: ['jwtauth', 'lkauth'],
   data: () => ({}),
   computed: {

@@ -106,3 +106,25 @@
   border-top: 1px solid #e6e6e6;
   padding: 13px 47px;
 }
+
+.ml-wrapper-alert {
+  z-index: 10;
+  position: relative;
+  width: 100%;
+  padding: 12px 0px;
+
+  .ml-black-alert {
+    height: 48px;
+    background: #1f1f1f;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.03em;
+    color: #cccccc;
+    padding: 13px 23px;
+  }
+
+  i {
+    color: #cccccc !important;
+  }
+}

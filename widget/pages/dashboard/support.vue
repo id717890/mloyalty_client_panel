@@ -1,11 +1,12 @@
 <template>
-  <div class="d-flex flex-column h100">
-    <div v-if="alert" class="wrapper-alert pb pb-0 pt-8">
-      <div class="black-alert" style="height: auto">
+  <div>
+    <MlHeaderPage title="Поддержка" />
+    <div v-if="alert" class="ml-wrapper-alert pa-5 pb-0">
+      <div class="ml-black-alert" style="height: auto">
         :( Мы сожалеем, но что-то пошло не так... Повторите попытку
       </div>
     </div>
-    <div class="pb pt-8 h100">
+    <div class="pa-5">
       <div v-if="!isSent">
         <div class="pb-0">
           <v-select
@@ -29,55 +30,6 @@
           </v-select>
         </div>
         <div class="pb-0">
-          <v-text-field
-            v-model="form.name"
-            append-icon="mdi-check"
-            autocomplete="off"
-            type="text"
-            required
-            :rules="nameRules"
-            height="60"
-            label="Имя *"
-            class="ml-input ml-hide-details"
-            :class="{ novalidate: validateName === false }"
-            outlined
-            color="dark"
-          ></v-text-field>
-        </div>
-        <div class="pb-0">
-          <v-text-field
-            v-model="form.email"
-            color="dark"
-            append-icon="mdi-check"
-            type="email"
-            autocomplete="off"
-            required
-            :rules="emailRules"
-            height="60"
-            label="E-mail *"
-            class="ml-input ml-hide-details"
-            :class="{ novalidate: validateEmail === false }"
-            outlined
-          ></v-text-field>
-        </div>
-        <div class="pb-0">
-          <v-text-field
-            v-model="form.phone"
-            v-mask="'(###) ###-##-##'"
-            color="dark"
-            prepend-inner-icon="+7"
-            append-icon="mdi-check"
-            autocomplete="off"
-            required
-            :rules="phoneRules"
-            height="60"
-            label="Телефон *"
-            class="ml-input ml-input-prepend-inner ml-hide-details"
-            :class="{ novalidate: validatePhone === false }"
-            outlined
-          ></v-text-field>
-        </div>
-        <div class="pb-0">
           <MlTextarea
             v-model="form.message"
             placeholder="Текст сообщения"
@@ -88,10 +40,11 @@
           <button
             class="ml-black-btn"
             style="width: 100%"
-            :disabled="!validateForm"
+            :disabled="loading"
             @click.stop="sendMessage"
           >
             Отправить
+            <v-icon v-if="!loading">mdi-telegram</v-icon>
             <v-progress-circular
               v-if="loading"
               indeterminate
@@ -101,11 +54,11 @@
           </button>
         </div>
       </div>
-      <div v-else class="h100">
+      <div v-else>
         <div
-          class="h100 d-flex flex-column align-center justify-content-center"
+          class="d-flex flex-column align-center justify-content-center pt-16 mt-5"
         >
-          <img src="/imgage/success-message.png" class="mb-6" alt="" />
+          <img src="/image/success-message.png" class="mb-6" alt="" />
           <div class="text6 text-center mb-6">
             Спасибо! <br />
             Ваше обращение принято. <br />Ожидайте ответа.
@@ -120,16 +73,12 @@
 </template>
 
 <script>
-import { mask } from 'vue-the-mask'
 import MlTextarea from '@/components/UI/MlTextarea'
 import { mapActions } from 'vuex'
 import supportTypes from '@/store/support/types'
 
 export default {
   name: 'SupportPage',
-  directives: {
-    mask,
-  },
   components: {
     MlTextarea,
   },
@@ -137,64 +86,38 @@ export default {
     loading: false,
     isSent: false,
     alert: false,
-    emailRules: [
-      (v) => !!v || 'Необходимо заполнить e-mail',
-      (v) => /.+@.+/.test(v) || 'Введен некорректный E-mail',
-    ],
-    nameRules: [(v) => !!v || 'Необходимо заполнить Имя'],
-    phoneRules: [(v) => !!v || 'Необходимо заполнить Телефон'],
     option: {
       types: [
         {
           id: 1,
-          name: 'Покупка карты / сертификата',
+          name: 'Не начислены бонусы',
         },
         {
           id: 2,
-          name: 'Использование карты / сертификата',
+          name: 'Не списаны бонусы',
         },
         {
           id: 3,
-          name: 'Рекомендации',
+          name: 'Вопрос по акции',
         },
       ],
     },
     form: {
       // type: {
-      //   id: 1,
-      //   name: 'Покупка карты / сертификата'
+      // id: 1,
+      // name: 'Не начислены бонусы',
       // },
-      // name: 'Zam ',
-      // email: 'qwe@qwe.ru',
-      // phone: 9224870500,
-      // message: 'test message'
+      // message: 'test message',
       type: null,
-      name: null,
-      email: null,
-      phone: null,
       message: null,
     },
   }),
   computed: {
     validateForm() {
-      return (
-        this.validateEmail &&
-        this.validatePhone &&
-        this.validateName &&
-        this.form.type
-      )
+      return this.form.type
     },
     typeId() {
       return this.form?.type?.id
-    },
-    validateName() {
-      return this.form?.name?.length > 0
-    },
-    validatePhone() {
-      return this.form?.phone?.length === 15
-    },
-    validateEmail() {
-      return /.+@.+/.test(this.form.email)
     },
   },
   methods: {
@@ -202,16 +125,10 @@ export default {
     async sendMessage() {
       this.loading = true
       const result = await this[supportTypes.NEW_SUPPORT_REQUEST_ACTION]({
-        phone: this.$helper.getClearPhone(this.form?.phone),
-        email: this.form?.email,
-        leadname: this.form?.name,
         leadmessage: {
           subject: this.form?.type?.name,
           leadtext: this.form?.message,
         },
-        direction: 2,
-        type: 4,
-        formname: 'Поддержка_Виджет',
       })
       this.loading = false
       if (result) {
@@ -224,9 +141,6 @@ export default {
       }
     },
     goBack() {
-      this.form.email = null
-      this.form.phone = null
-      this.form.name = null
       this.form.message = null
       this.form.type = null
       this.isSent = false

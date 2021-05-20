@@ -12,11 +12,11 @@
   }
 
   fieldset {
-    border: 1px solid #e6e6e6;
+    border: 1px solid #e6e6e6 !important;
   }
 
   .v-label--active {
-    top: 29px;
+    top: 29px !important;
   }
 
   .v-text-field__slot {
@@ -44,7 +44,7 @@
   }
 
   fieldset {
-    border: 1px solid #000000;
+    border: 1px solid #000000 !important;
   }
 }
 

@@ -159,7 +159,7 @@ export default {
     },
     totalSum() {
       return this.allOrdersAndBonuses.reduce((prev, current) => {
-        console.log(prev, current)
+        // console.log(prev, current)
         const currentSum = parseInt(current?.sum)
         if (Number.isInteger(currentSum)) return prev + currentSum
         return prev

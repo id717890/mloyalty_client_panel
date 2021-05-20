@@ -1,10 +1,37 @@
 <template>
   <div class="d-flex flex-column flex-grow-1">
     <div class="ml-client-info">
-      <div class="d-flex flex-row flex-nowrap">
-        <div class="ml-text-24-32-600 flex-grow-1">{{ fio }}</div>
-        <v-btn icon class="ml-edit-fio-btn">
+      <div v-if="!isEditFio" class="d-flex flex-row flex-nowrap">
+        <div class="ml-text-24-32-600 flex-grow-1 ml-text-black2">
+          {{ fio }}
+        </div>
+        <v-btn icon class="ml-edit-fio-btn" @click="changeFioStart">
           <img src="/image/pencil1.svg" alt="" />
+        </v-btn>
+      </div>
+      <div v-if="isEditFio" class="d-flex flex-row flex-nowrap">
+        <v-text-field
+          ref="fio-field"
+          v-model="form.fio"
+          :disabled="isFioLoading"
+          autofocus
+          class="ma-0 pa-0 ml-edit-fio-field"
+          placeholder="Введите имя"
+        ></v-text-field>
+        <v-btn
+          icon
+          class="ml-edit-fio-btn"
+          :disabled="isFioLoading"
+          @click="changeFio"
+        >
+          <v-icon v-if="!isFioLoading"> mdi-check </v-icon>
+          <v-progress-circular
+            v-else
+            indeterminate
+            width="2"
+            size="20"
+            color="#000000"
+          ></v-progress-circular>
         </v-btn>
       </div>
       <div class="ml-text-18-20">
@@ -15,10 +42,10 @@
           readonly
         ></v-text-field>
       </div>
-      <div class="ml-white-block mb-8">
+      <div class="ml-white-block mb-4">
         <div class="ml-text-22-28-700">{{ fullbalance }} бонусов</div>
       </div>
-      <div class="ml-white-block">
+      <div class="ml-white-block mb-4">
         <div class="d-flex align-items-center mb-1">
           <div class="ml-text-28-34-700">
             {{ purchasesSum }} <img src="/image/icon-rub.svg" alt="" />
@@ -43,57 +70,60 @@
               {{ levelName }}
             </span>
           </a>
-          <span class="ml-text-15-24-700">{{ cashback }} кэшбек</span>
+          <span class="ml-text-15-24-700">{{ cashback }} кэшбэк</span>
         </div>
       </div>
 
-      <div class="ml-navs d-flex flex-column pt-12 pb-10">
-        <nuxt-link
-          to="/dashboard/promotions"
-          class="ml-text-20-22-600 mb-5 ml-text-black2"
-        >
-          Акции
-        </nuxt-link>
-        <nuxt-link
-          to="/dashboard/history"
-          class="ml-text-20-22-600 mb-5 ml-text-black2"
-        >
-          История бонусов
-        </nuxt-link>
-        <nuxt-link
-          to="/dashboard/faq"
-          class="ml-text-20-22-600 mb-5 ml-text-black2"
-        >
-          Частые вопросы
-        </nuxt-link>
-        <nuxt-link
-          to="/dashboard/support"
-          class="ml-text-20-22-600 mb-5 ml-text-black2"
-        >
-          Поддержка
-        </nuxt-link>
-        <nuxt-link
-          to="/dashboard/rules"
-          class="ml-text-20-22-600 mb-5 ml-text-black2"
-        >
-          Правила
-        </nuxt-link>
+      <div class="ml-white-block">
+        <div class="ml-navs d-flex flex-column pt-4">
+          <nuxt-link
+            to="/dashboard/promotions"
+            class="ml-text-20-22-600 mb-5 ml-text-black2"
+          >
+            Акции
+          </nuxt-link>
+          <nuxt-link
+            to="/dashboard/history"
+            class="ml-text-20-22-600 mb-5 ml-text-black2"
+          >
+            История бонусов
+          </nuxt-link>
+          <nuxt-link
+            to="/dashboard/faq"
+            class="ml-text-20-22-600 mb-5 ml-text-black2"
+          >
+            Частые вопросы
+          </nuxt-link>
+          <nuxt-link
+            to="/dashboard/support"
+            class="ml-text-20-22-600 mb-5 ml-text-black2"
+          >
+            Поддержка
+          </nuxt-link>
+          <nuxt-link
+            to="/dashboard/rules"
+            class="ml-text-20-22-600 mb-5 ml-text-black2"
+          >
+            Правила
+          </nuxt-link>
+        </div>
       </div>
     </div>
-    <div class="ml-controlls">
+    <!-- <div class="ml-controlls">
       <a href="#" class="ml-black-btn py-5" @click.prevent="">
         <div class="d-flex align-items-center justify-content-center">
           <img src="/image/icon-right.svg" class="mr-2" alt="" />
           <span class="ml-text-16-20-500">Написать отзыв</span>
         </div>
       </a>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import { mask } from 'vue-the-mask'
+import clientTypes from '~/store/client/types'
 
 const addOrders = 15
 
@@ -103,6 +133,11 @@ export default {
   data: () => ({
     price: 0,
     showOrders: 15,
+    isEditFio: false,
+    isFioLoading: false,
+    form: {
+      fio: null,
+    },
   }),
   computed: {
     ...mapGetters('client', ['allOrdersAndBonuses']),
@@ -120,7 +155,7 @@ export default {
       return this.clientInfo?.Purchases
     },
     purchasesSum() {
-      return this.clientInfo?.PurchaseSum
+      return Math.round(this.clientInfo?.PurchaseSum, 0)
     },
     totalSum() {
       return this.allOrdersAndBonuses.reduce((prev, current) => {
@@ -151,6 +186,17 @@ export default {
     },
   },
   methods: {
+    ...mapActions('client', [clientTypes.CLIENT_CHANGE_FIO_ACTION]),
+    changeFioStart() {
+      this.form.fio = this.fio
+      this.isEditFio = true
+    },
+    async changeFio() {
+      this.isFioLoading = true
+      await this[clientTypes.CLIENT_CHANGE_FIO_ACTION](this.form.fio)
+      this.isFioLoading = false
+      this.isEditFio = false
+    },
     showMore() {
       this.showOrders += addOrders
     },
@@ -179,4 +225,37 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.ml-edit-fio-field {
+  .v-input__control .v-input__slot:before,
+  .v-input__control .v-input__slot:after {
+    border: none !important;
+  }
+}
+
+.ml-edit-fio-field {
+  input {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.02em;
+    color: #4d4d4d !important;
+  }
+
+  .v-text-field__details {
+    display: none;
+  }
+
+  .v-input__slot {
+    margin-bottom: 0;
+  }
+}
+
+.ml-edit-fio-field.v-input--is-focused {
+  .v-input__control .v-input__slot:before,
+  .v-input__control .v-input__slot:after {
+    border: none !important;
+  }
+}
+</style>

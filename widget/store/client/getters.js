@@ -14,23 +14,28 @@ export default {
     let resultOrders = []
     let resultBonuses = []
     const orders = state?.clientCheques?.ChequeData
-    const bonuses = state?.clientBonuses?.Bonuses
+    const bonuses = state?.clientBonuses?.CardBonuses
     if (bonuses) {
+      console.log('map bonus')
       resultBonuses = bonuses.map((bonus) => {
-        const date = format(parseISO(bonus?.BonusDate), 'dd.MM.yyyy')
-        const time = format(parseISO(bonus?.BonusDate), 'hh:mm')
-        const dateTime = format(
-          parseISO(bonus?.BonusDate),
-          'dd.MM.yyyy hh:mm:ss'
-        )
+        const date = format(parseISO(bonus?.BonusTime), 'dd.MM.yyyy')
+        const time = format(parseISO(bonus?.BonusTime), 'hh:mm')
+        const dateTime = bonus?.BonusTime
 
         const bonusMapped = {
           id: uuid(),
           date,
           time,
           dateTime,
-          title: bonus?.BonusSource,
-          bonus: `+${bonus?.BonusAdded}`,
+          title: bonus?.BonusType,
+          bonus:
+            bonus?.Bonus?.toString().indexOf('-') !== -1
+              ? bonus?.Bonus
+              : `+${bonus?.Bonus}`,
+          color:
+            bonus?.Bonus?.toString().indexOf('-') !== -1
+              ? 'ml-text-red1'
+              : 'ml-text-green1',
           type: Constants?.OPERATION_TYPE?.BONUS?.name,
         }
         return bonusMapped
@@ -40,7 +45,7 @@ export default {
       resultOrders = orders.map((order) => {
         const date = format(parseISO(order?.Date), 'dd.MM.yyyy')
         const time = format(parseISO(order?.Date), 'hh:mm')
-        const dateTime = format(parseISO(order?.Date), 'dd.MM.yyyy hh:mm:ss')
+        const dateTime = order?.Date
         let type
         let sum
         const operationType = order?.OperationType?.toLowerCase()
@@ -64,6 +69,7 @@ export default {
           type,
           sum,
           items: order?.Items,
+          color: 'ml-text-green1',
         }
         const bonus = order?.Bonus
         const bonusUse = order?.PaidByBonus
@@ -72,9 +78,13 @@ export default {
         return orderMapped
       })
     }
-    return [...resultOrders, ...resultBonuses].sort((a, b) => {
-      if (a?.dateTime > b?.dateTime) return 1
-      if (a?.dateTime < b?.dateTime) return -1
+    // console.log(resultOrders)
+    console.log(resultBonuses)
+    // return [...resultOrders, ...resultBonuses].sort((a, b) => {
+    return [...resultOrders].sort((a, b) => {
+      // return [...resultBonuses].sort((a, b) => {
+      if (parseISO(a?.dateTime) < parseISO(b?.dateTime)) return 1
+      if (parseISO(a?.dateTime) > parseISO(b?.dateTime)) return -1
       return 0
     })
   },

@@ -43,12 +43,22 @@ export default {
   components: { MlLoading },
   middleware: ['jwtauth', 'lkauth'],
   data: () => ({}),
+  head() {
+    return {
+      bodyAttrs: {
+        class: 'ml-bg1',
+      },
+    }
+  },
   computed: {
     ...mapState({
       burgerWidth: (state) => state?.app?.panelBurger?.width,
       burgerShow: (state) => state?.app?.panelBurger?.show,
       loading: (state) => state?.app?.loading,
     }),
+  },
+  mounted() {
+    document.getElementById('app').classList.add('ml-bg1')
   },
   methods: {
     ...mapMutations('app', [appTypes.TOGGLE_PANEL_BURGER]),

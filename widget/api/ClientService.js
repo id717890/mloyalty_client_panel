@@ -1,6 +1,9 @@
 import ApiBase from './_ApiBase'
 
 export default {
+  changeFio(data) {
+    return ApiBase.post('api/client/ChangeClient', data)
+  },
   clientCreateIshop(data) {
     return ApiBase.post('api/client/ClientCreateIshop', data)
   },
@@ -16,7 +19,11 @@ export default {
   getCheques(data) {
     return ApiBase.post('api/values/GetCheques', data)
   },
-  getBonuses(data) {
+  // TODO удалить после завершения нового метода
+  getBonusesOld(data) {
     return ApiBase.post('api/client/BonusesNotForPurchases', data)
+  },
+  getBonuses(data) {
+    return ApiBase.post('api/client/CardBonuses', data)
   },
 }

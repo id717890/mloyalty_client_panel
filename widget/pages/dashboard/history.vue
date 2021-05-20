@@ -1,25 +1,7 @@
 <template>
   <div class="d-flex flex-column flex-grow-1">
-    <div style="padding: 0 44px" class="pt-3">
-      <v-btn icon @click="$router.push('/dashboard')">
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
-    </div>
-    <div class="ml-client-info pt-3">
-      <div class="d-flex flex-row flex-nowrap">
-        <div class="ml-text-24-32-600 flex-grow-1">{{ fio }}</div>
-      </div>
-      <div class="ml-text-18-20">
-        <v-text-field
-          v-mask="'+7 (###) ###-##-##'"
-          class="ml-readonly-field pt-0"
-          :value="phone"
-          readonly
-        ></v-text-field>
-      </div>
-      <!-- <div class="ml-text-32-40-600">{{ totalSum }} ₽</div> -->
-    </div>
-    <div class="ml-orders-list">
+    <MlHeaderPage title="История бонусов" />
+    <div class="ml-orders-list pt-4">
       <template v-if="!allOrdersAndBonuses">
         <div
           class="d-flex flex-grow-1 justify-content-center flex-column align-items-center"
@@ -39,46 +21,56 @@
           <div
             v-for="order in orders"
             :key="order.id"
-            class="ml-white-block mb-4"
+            class="ml-white-block pa-0 mb-4"
           >
-            <!-- <div v-for="order in orders" :key="order.id" class="ml-order-block"> -->
-            <div class="d-flex">
-              <div class="ml-text-19-22-500 flex-grow-1">
-                {{ order.title }}
+            <div class="pa-5">
+              <!-- <div v-for="order in orders" :key="order.id" class="ml-order-block"> -->
+              <div class="d-flex">
+                <div class="ml-text-19-22-500 flex-grow-1">
+                  {{ order.title }}
+                </div>
+                <div class="d-flex flex-column">
+                  <div class="ml-text-13-18">{{ order.date }}</div>
+                  <div class="ml-text-13-18">{{ order.time }}</div>
+                </div>
               </div>
-              <div class="d-flex flex-column">
-                <div class="ml-text-13-18">{{ order.date }}</div>
-                <div class="ml-text-13-18">{{ order.time }}</div>
+              <div v-if="order.shopName" class="ml-text-15-18 mb-1">
+                {{ order.shopName }}
+              </div>
+              <div v-if="orderType(order)">
+                <span class="ml-text-15-18">{{ orderType(order) }}</span>
+                <span class="ml-text-17-18">{{ order.sum }}₽</span>
+              </div>
+              <div class="d-flex align-items-center flex-row flex-nowrap">
+                <div
+                  v-if="order.bonus"
+                  class="ml-text-15-18-700 mr-5"
+                  :class="order.color"
+                >
+                  {{ order.bonus }} Б
+                </div>
+                <div
+                  v-if="order.bonusUse"
+                  class="ml-text-15-18-700 ml-text-red1 mr-5"
+                >
+                  {{ order.bonusUse }} Б
+                </div>
               </div>
             </div>
-            <div v-if="order.shopName" class="ml-text-15-18">
-              {{ order.shopName }}
-            </div>
-            <div v-if="orderType(order)">
-              <span class="ml-text-15-18">{{ orderType(order) }}</span>
-              <span class="ml-text-17-18">{{ order.sum }}₽</span>
-            </div>
-            <div class="d-flex align-items-center flex-row flex-nowrap">
+            <div v-if="order.type !== 'bonus' && order.items.length > 0">
               <div
-                v-if="order.bonus"
-                class="ml-text-15-18-700 ml-text-green1 mr-5"
+                class="ml-order-detail-link px-5"
+                @click.prevent="openDetails(order)"
               >
-                {{ order.bonus }} Б
+                <span>Детализация</span>
+                <v-icon>mdi-chevron-right</v-icon>
               </div>
               <div
-                v-if="order.bonusUse"
-                class="ml-text-15-18-700 ml-text-red1 mr-5"
+                class="ml-order-feedback-link px-5"
+                @click.prevent="openFeedback(order)"
               >
-                {{ order.bonusUse }} Б
-              </div>
-              <div
-                v-if="order.type !== 'bonus'"
-                class="ml-text-13-22 flex-grow-1 text-right"
-              >
-                <a href="#" @click.prevent="openDetails(order)">
-                  Подробнее
-                  <v-icon>mdi-chevron-right</v-icon>
-                </a>
+                <span>Оставить отзыв</span>
+                <v-icon>mdi-chevron-right</v-icon>
               </div>
             </div>
           </div>
@@ -113,34 +105,24 @@ export default {
     ...mapGetters('client', ['allOrdersAndBonuses']),
     ...mapState({
       clientInfo: (state) => state?.client?.clientInfo,
-      phone: (state) => state.verify.phone,
     }),
     orders() {
       return this.allOrdersAndBonuses?.slice(0, this.showOrders)
     },
     totalSum() {
       return this.allOrdersAndBonuses.reduce((prev, current) => {
-        console.log(prev, current)
+        // console.log(prev, current)
         const currentSum = parseInt(current?.sum)
         if (Number.isInteger(currentSum)) return prev + currentSum
         return prev
       }, 0)
-    },
-    fio() {
-      let fio = ''
-      // const surname = this.clientInfo?.Surname
-      const name = this.clientInfo?.Name
-      // const patronymic = this.clientInfo?.Patronymic
-      // if (surname) `fio += `${surname} `
-      if (name) fio += `${name} `
-      // if (patronymic) fio += `${patronymic} `
-      return fio
     },
     endOfOrders() {
       return this.showOrders >= this.allOrdersAndBonuses?.length
     },
   },
   methods: {
+    openFeedback() {},
     showMore() {
       this.showOrders += addOrders
     },
@@ -169,4 +151,28 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.ml-order-detail-link,
+.ml-order-feedback-link {
+  border-top: 1px solid #e6e6e6;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  cursor: pointer;
+
+  span {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    color: #000000;
+    opacity: 0.5;
+  }
+}
+
+.ml-order-detail-link:hover,
+.ml-order-feedback-link:hover {
+  span {
+    color: #4d4d4d;
+  }
+}
+</style>

@@ -5,6 +5,28 @@ import verifyTypes from '~/store/verify/types'
 const PAGE_SIZE = 1000
 
 export default {
+  [types.CLIENT_CHANGE_FIO_ACTION]: async (
+    { rootGetters, state, commit },
+    fio
+  ) => {
+    const operator = rootGetters['app/getOperator']
+    const token = rootGetters['app/getToken']
+    const poscode = rootGetters['app/getPosCode']
+    const clientData = {
+      id: state?.clientInfo?.Id,
+      firstname: fio,
+    }
+    const requset = {
+      operator,
+      token,
+      poscode,
+      clientData,
+    }
+    const { data, status } = await ClientService.changeFio(requset)
+    if (status === 200 && data?.ErrorCode === 0 && !data?.Message) {
+      commit(types.CHANGE_CLIENT_NAME, fio)
+    }
+  },
   [types.CLIENT_CREATE_ISHOP_ACTION]: async ({ rootGetters, rootState }) => {
     // const operator = rootState?.auth?.decodeJwt?.oper
     const operator = rootGetters['app/getOperator']
@@ -25,8 +47,8 @@ export default {
       dispatch('app/SET_APP_LOADING', true, { root: true })
       console.log('clientInfo')
       if (!state.clientInfo) await dispatch(types.GET_CLIENT_INFO)
-      console.log('clientCard')
-      if (!state.clientCard) await dispatch(types.GET_CLIENT_CARD)
+      // console.log('clientCard')
+      // if (!state.clientCard) await dispatch(types.GET_CLIENT_CARD)
       console.log('clientCheques')
       if (!state.clientCheques) await dispatch(types.GET_CLIENT_CHEQUES)
       console.log('clientBonuses')
@@ -43,20 +65,22 @@ export default {
     }
   },
   [types.GET_CLIENT_BONUSES]: async ({ state, rootGetters, commit }) => {
-    const client = state?.clientInfo?.Id
-    if (!client) throw new Error('GET_CLIENT_BONUSES: clientID is not defined')
+    // const client = state?.clientInfo?.Id
+    // if (!client) throw new Error('GET_CLIENT_BONUSES: clientID is not defined')
     // const operator = state?.operator
     // const { oper: operator } = rootState?.auth?.decodeJwt
     const operator = rootGetters['app/getOperator']
+    const token = rootGetters['app/getToken']
     if (!operator)
       throw new Error('GET_CLIENT_BONUSES: operatorID is not defined')
+    if (!token) throw new Error('GET_CLIENT_BONUSES: token is not defined')
     const card = state?.clientInfo?.Card
     if (!card) throw new Error('GET_CLIENT_BONUSES: card is not defined')
 
     const data = {
       DateStart: '2017-01-01',
-      Client: client,
-      // Card: card,
+      // Client: client,
+      Card: card,
       Operator: operator,
       Page: 0,
       PageSize: PAGE_SIZE,
@@ -71,6 +95,7 @@ export default {
         delete response?.data?.Message
         delete response?.data?.ErrorCode
         commit(types.SET_CLIENT_BONUSES, response?.data)
+        console.log('SUCCESS BONUS')
         return response?.data
       } else {
         throw new Error('GET_CLIENT_BONUSES', response)
@@ -109,6 +134,7 @@ export default {
       }
     })
   },
+  // TODO удалить и почистить этот метод и связанные
   [types.GET_CLIENT_CARD]: async ({ state, commit }) => {
     const card = state?.clientInfo?.Card
     if (!card) throw new Error('GET_CLIENT_CARD: card is not defined')

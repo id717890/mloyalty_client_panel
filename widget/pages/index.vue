@@ -50,7 +50,8 @@
       >
         <template #text>
           <div class="ml-title-14-20">
-            Вводя смс-код вы соглашаетесь с правилами клуба
+            Вводя смс-код вы соглашаетесь с
+            <a href="#"><u>правилами программы</u></a>
           </div>
         </template>
       </verification-code>

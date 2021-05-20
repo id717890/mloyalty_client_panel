@@ -1,14 +1,8 @@
 <template>
   <div>
-    <div style="padding: 0 44px" class="pt-3">
-      <v-btn icon @click="$router.push('/dashboard')">
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
-    </div>
+    <MlHeaderPage title="Частые вопросы" />
     <div class="px-12 py-4">
-      <div class="d-flex align-items-center">
-        <h1>Частые вопросы</h1>
-      </div>
+      <div class="d-flex align-items-center"></div>
     </div>
   </div>
 </template>

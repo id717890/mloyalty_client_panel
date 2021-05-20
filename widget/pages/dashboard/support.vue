@@ -82,6 +82,7 @@ export default {
   components: {
     MlTextarea,
   },
+  layout: 'dashboard',
   data: () => ({
     loading: false,
     isSent: false,

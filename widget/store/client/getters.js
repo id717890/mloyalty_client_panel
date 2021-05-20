@@ -16,7 +16,7 @@ export default {
     const orders = state?.clientCheques?.ChequeData
     const bonuses = state?.clientBonuses?.CardBonuses
     if (bonuses) {
-      console.log('map bonus')
+      // console.log('map bonus')
       resultBonuses = bonuses.map((bonus) => {
         const date = format(parseISO(bonus?.BonusTime), 'dd.MM.yyyy')
         const time = format(parseISO(bonus?.BonusTime), 'hh:mm')
@@ -79,9 +79,9 @@ export default {
       })
     }
     // console.log(resultOrders)
-    console.log(resultBonuses)
-    // return [...resultOrders, ...resultBonuses].sort((a, b) => {
-    return [...resultOrders].sort((a, b) => {
+    // console.log(resultBonuses)
+    return [...resultOrders, ...resultBonuses].sort((a, b) => {
+      // return [...resultOrders].sort((a, b) => {
       // return [...resultBonuses].sort((a, b) => {
       if (parseISO(a?.dateTime) < parseISO(b?.dateTime)) return 1
       if (parseISO(a?.dateTime) > parseISO(b?.dateTime)) return -1

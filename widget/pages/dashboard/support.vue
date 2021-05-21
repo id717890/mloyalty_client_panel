@@ -1,19 +1,23 @@
 <template>
   <div>
     <MlHeaderPage title="Поддержка" />
-    <div v-if="alert" class="ml-wrapper-alert pa-5 pb-0">
-      <div class="ml-black-alert" style="height: auto">
-        :( Мы сожалеем, но что-то пошло не так... Повторите попытку
+    <div v-if="alert" class="ml-wrapper-alert2">
+      <div class="ml-black-rounded-alert" style="height: auto">
+        <!-- :( Мы сожалеем, но что-то пошло не так... Повторите попытку -->
+        {{ alertMessage }}
       </div>
     </div>
     <div class="pa-5">
       <div v-if="!isSent">
-        <div class="pb-0">
+        <div class="ml-text-17-22-600 mb-5">Заполните форму!</div>
+
+        <div class="pb-0 mb-2">
           <v-select
             v-model="form.type"
-            class="ml-select ml-hide-details"
+            class="ml-select ml-select-white ml-hide-details ml-radius-16"
             :items="option.types"
             label="Тема обращения*"
+            height="60"
             outlined
             item-text="name"
             return-object
@@ -29,18 +33,18 @@
             </template>
           </v-select>
         </div>
-        <div class="pb-0">
+        <div class="pb-0 mb-2">
           <MlTextarea
             v-model="form.message"
             placeholder="Текст сообщения"
+            class-attr="ml-radius-16 ml-textarea-white"
             :maxlength="500"
           />
         </div>
         <div class="pt-1">
           <button
-            class="ml-black-btn"
-            style="width: 100%"
-            :disabled="loading"
+            class="ml-btn-silver3 w100"
+            :disabled="loading || !validateForm"
             @click.stop="sendMessage"
           >
             Отправить
@@ -54,7 +58,7 @@
           </button>
         </div>
       </div>
-      <div v-else>
+      <!-- <div v-else>
         <div
           class="d-flex flex-column align-center justify-content-center pt-16 mt-5"
         >
@@ -67,7 +71,7 @@
             Вернуться назад
           </a>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -85,6 +89,7 @@ export default {
   layout: 'dashboard',
   data: () => ({
     loading: false,
+    alertMessage: null,
     isSent: false,
     alert: false,
     option: {
@@ -115,7 +120,7 @@ export default {
   }),
   computed: {
     validateForm() {
-      return this.form.type
+      return this.form.type && this.form.message
     },
     typeId() {
       return this.form?.type?.id
@@ -133,13 +138,16 @@ export default {
       })
       this.loading = false
       if (result) {
-        this.isSent = true
+        this.alert = true
+        this.alertMessage = 'Сообщение успешно отправлено'
+        this.goBack()
       } else {
         this.alert = true
-        setTimeout(() => {
-          this.alert = false
-        }, 3000)
+        this.alertMessage = 'Произошла ошибка! Повторите'
       }
+      setTimeout(() => {
+        this.alert = false
+      }, 3000)
     },
     goBack() {
       this.form.message = null

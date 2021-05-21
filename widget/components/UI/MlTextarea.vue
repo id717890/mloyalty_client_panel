@@ -9,6 +9,7 @@
       :maxlength="maxlength"
       v-bind="$attrs"
       class="ml-textarea form-control"
+      :class="classAttr"
       :value="value"
       :rows="rows"
       @input="$emit('input', $event.target.value)"
@@ -51,6 +52,10 @@ export default {
     showLimits: {
       type: Boolean,
       default: false,
+    },
+    classAttr: {
+      type: String,
+      default: null,
     },
   },
   computed: {

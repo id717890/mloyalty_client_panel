@@ -48,6 +48,47 @@
   }
 }
 
+.ml-select-white {
+  fieldset {
+    border: none !important;
+  }
+  .v-input__slot {
+    background: white !important;
+  }
+
+  .v-select__slot {
+    .v-label {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 16px;
+      /* identical to box height, or 123% */
+
+      letter-spacing: -0.03em;
+
+      /* grey-70 */
+
+      color: #b3b3b3;
+    }
+  }
+
+  .v-select__selections {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+
+    letter-spacing: -0.02em;
+
+    /* grey-30 */
+
+    color: #4d4d4d;
+  }
+}
+
 .ml-input-noty {
   font-size: 14px;
   line-height: 20px;

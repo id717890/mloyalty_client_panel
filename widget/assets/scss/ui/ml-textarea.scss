@@ -17,3 +17,23 @@
   position: relative;
   top: -33px;
 }
+
+.ml-textarea-white {
+  border: none;
+  background-color: white;
+}
+
+.ml-textarea-white::placeholder {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  /* or 143% */
+
+  letter-spacing: -0.03em;
+
+  /* grey-70 */
+
+  color: #b3b3b3;
+}

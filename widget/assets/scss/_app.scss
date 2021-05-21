@@ -10,16 +10,16 @@
 // @import 'material-design-icons-iconfont/dist/material-design-icons.css';
 @import '@mdi/font/css/materialdesignicons.css';
 
-.test {
-  // border: 1px solid green;
+.b1 {
+  border: 3px solid yellowgreen;
 }
 
-.index {
-  // border: 1px solid blue;
+.b2 {
+  border: 3px solid red;
 }
 
-.container-fluid {
-  // border: 1px solid red;
+.b3 {
+  border: 3px solid blue;
 }
 
 a {
@@ -133,6 +133,10 @@ button:focus {
 
 .ml-radius-6 {
   border-radius: 6px;
+}
+
+.ml-radius-16 {
+  border-radius: 16px !important;
 }
 
 .ml-radius-20 {

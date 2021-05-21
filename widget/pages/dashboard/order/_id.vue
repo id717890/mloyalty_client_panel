@@ -3,7 +3,7 @@
     <MlHeaderPage back-url="/dashboard/history" title="Детализация" />
     <div class="px-11">
       <div class="ml-text-13-18 my-7 text-uppercase ml-text-grey3">
-        Номер чека: {{ order.id }}
+        Номер чека: {{ order.number }}
       </div>
       <div>
         <div

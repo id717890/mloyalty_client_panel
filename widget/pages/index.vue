@@ -51,7 +51,9 @@
         <template #text>
           <div class="ml-title-14-20">
             Вводя смс-код вы соглашаетесь с
-            <a href="#"><u>правилами программы</u></a>
+            <a href="#" @click.prevent="openRules"
+              ><u>правилами программы</u></a
+            >
           </div>
         </template>
       </verification-code>
@@ -95,6 +97,8 @@ export default {
     ...mapGetters('app', ['getClientMloyalty']),
     ...mapState({
       testMode: (state) => state?.app?.testMode,
+      rulesUrl: (state) => state?.app?.mainWidgetConfig?.Rules?.Url,
+      buffer: (state) => state?.verify?.buffer,
     }),
     channelType() {
       return Constants?.SEND_METHOD?.SMS?.COMMUNICATION_TYPE // = 1
@@ -122,7 +126,18 @@ export default {
       clientTypes.CLIENT_CREATE_ISHOP_ACTION,
       clientTypes.CLIENT_CREATE_ACTION_2,
     ]),
-    ...mapMutations('verify', [verifyTypes.SET_PHONE]),
+    ...mapMutations('verify', [verifyTypes.SET_PHONE, verifyTypes.SET_BUFFER]),
+    openRules() {
+      this[verifyTypes.SET_BUFFER]({
+        phone: this.phone,
+        isSentVerificationCode: this.isSentVerificationCode,
+      })
+      this.$router.push({
+        name: 'rules',
+        params: { backUrl: '/' },
+      })
+      // window.open(this.rulesUrl, '_blank')
+    },
     async setInitialize() {
       this.loading = true
       console.log(this.getClientMloyalty)
@@ -132,6 +147,15 @@ export default {
       } else {
         // this.phone = this.testMode ? 9224870500 : null
         this.phone = this.testMode ? 9527247500 : null
+        const bufferPhone = this.buffer?.phone
+        const bufferIsSentVerificationCode = this.buffer?.isSentVerificationCode
+
+        if (bufferPhone) {
+          this.phone = bufferPhone
+        }
+        if (bufferIsSentVerificationCode) {
+          this.isSentVerificationCode = bufferIsSentVerificationCode
+        }
         this.loading = false
         this.$nextTick(() => {
           this.$refs?.phone?.focus()

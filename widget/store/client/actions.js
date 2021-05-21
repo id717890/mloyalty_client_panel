@@ -29,12 +29,13 @@ export default {
   },
   [types.CLIENT_CREATE_ISHOP_ACTION]: async ({ rootGetters, rootState }) => {
     // const operator = rootState?.auth?.decodeJwt?.oper
+    const { sourceurl } = rootState?.app
     const operator = rootGetters['app/getOperator']
     const token = rootState?.auth?.decodeJwt?.token
     const clientId = rootGetters['app/getClientMloyalty']
     // state?.clientId
-    const clientIshop = rootGetters['app/getClientIshop']
-    const request = { operator, token, clientId, clientIshop }
+    const clientIshop = parseInt(rootGetters['app/getClientIshop'])
+    const request = { operator, token, clientId, clientIshop, sourceurl }
     if (clientIshop && clientId) {
       // const { data, status } = await ClientService.clientCreateIshop(request)
       // console.log(data, status)

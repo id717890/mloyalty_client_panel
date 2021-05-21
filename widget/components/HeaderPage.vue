@@ -1,7 +1,7 @@
 <template>
   <div class="ml-header-page">
-    <nuxtLink class="ml-12 mr-4 d-flex align-items-center" :to="backUrl">
-      <img src="/image/arrow-left.svg" class="mr-1" alt="" />
+    <nuxtLink class="ml-11 mr-4 d-flex align-items-center" :to="backUrl">
+      <img src="/image/arrow-left.svg" class="mr-2" alt="" />
       <span class="ml-header-page_link"> Назад </span>
     </nuxtLink>
     <div class="ml-header-page_title mr-16 pr-8">{{ title }}</div>

@@ -7,7 +7,7 @@
         {{ alertMessage }}
       </div>
     </div>
-    <div class="pa-5">
+    <div class="py-5 px-10">
       <div v-if="!isSent">
         <div class="ml-text-17-22-600 mb-5">Заполните форму!</div>
 

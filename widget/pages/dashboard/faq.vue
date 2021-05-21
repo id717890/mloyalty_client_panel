@@ -18,13 +18,13 @@
           />
           <img class="ml-faq-item_arrow-down" src="/image/faq-arrow-down.png" />
         </div>
-        <div
+        <pre
           :ref="'answer-' + index"
           v-linkified:options="{ className: 'ml-link' }"
           class="ml-faq-item_answer"
         >
-          {{ faq.answer }}
-        </div>
+          {{ renderAnswer(faq.answer) }}
+        </pre>
       </div>
       <div v-if="!loading" class="text2">
         Не нашли ответ на свой вопрос? <br />
@@ -78,7 +78,12 @@ export default {
           })
       }
     },
-    goToSupport() {},
+    renderAnswer(answer) {
+      return answer.replaceAll('<br>', '\r\n')
+    },
+    goToSupport() {
+      this.$router.push('/dashboard/support')
+    },
     toggleFaq(id) {
       const elFaq = this.$refs['ml-faq-item-' + id][0]
       elFaq.classList.toggle('active')
@@ -86,9 +91,11 @@ export default {
       if (el.style.maxHeight) {
         el.style.maxHeight = null
         el.style.paddingTop = '0px'
+        el.style.paddingBotton = '0px'
       } else {
         el.style.maxHeight = el.scrollHeight + 10 + 'px'
         el.style.paddingTop = '10px'
+        el.style.paddingBotton = '10px'
       }
     },
   },

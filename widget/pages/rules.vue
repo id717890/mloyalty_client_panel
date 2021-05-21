@@ -1,6 +1,6 @@
 <template>
   <div class="vh100 d-flex flex-column">
-    <MlHeaderPage class="" title="Правила" />
+    <MlHeaderPage title="Правила" :back-url="backUrl" />
     <div class="px-10 pt-1 ml-rules">
       <pre class="ml-rules_text" style="white-space: pre-line">{{ rules }}</pre>
     </div>
@@ -10,14 +10,14 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  layout: 'dashboard',
+  layout: 'default',
   computed: {
     ...mapState({
       rules: (state) => state?.app?.mainWidgetConfig?.Rules?.Text,
     }),
-  },
-  mounted() {
-    console.log(this.$route)
+    backUrl() {
+      return this.$route?.params?.backUrl ?? '/'
+    },
   },
 }
 </script>

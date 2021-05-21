@@ -2,14 +2,13 @@ import AuthService from '@/api/AuthService'
 import appTypes from '~/store/app/types'
 
 export default async ({ store, redirect }) => {
-  console.log('jwtauth')
   const metadata = window?.xprops?.metadata
   const code = window?.xprops?.code
-  const sourceurl = window?.xprops?.sourceurl
+  const hostname = window?.xprops?.hostname
   if (metadata) store?.commit(`app/${appTypes.SET_METADATA}`, metadata)
   if (code) store?.commit(`app/${appTypes.SET_SITECODE}`, code)
-  if (sourceurl) store?.commit(`app/${appTypes.SET_SOURCEURL}`, sourceurl)
-  console.log('INIT', code, sourceurl, metadata)
+  if (hostname) store?.commit(`app/${appTypes.SET_SOURCEURL}`, hostname)
+  console.log('INIT', code, hostname, metadata)
   const accessToken = store?.state?.auth?.accessToken
   const refreshToken = store?.state?.auth?.refreshToken
   // Определяем наличие accessToken и refreshToken в хранилище

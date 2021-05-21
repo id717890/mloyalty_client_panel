@@ -70,6 +70,7 @@ export default {
           sum,
           items: order?.Items,
           color: 'ml-text-green1',
+          number: order?.Number,
         }
         const bonus = order?.Bonus
         const bonusUse = order?.PaidByBonus

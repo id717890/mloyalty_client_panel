@@ -131,7 +131,7 @@ export default {
     initWidget() {
       this.$refs['widget-wrapper'].innerHTML = null
       MloyaltyWidget({
-        sourceurl: 'http://localhost:8080',
+        // sourceurl: 'http://localhost:8080',
         code: 'Личный кабинет',
         metadata: {
           client_mloyalty: 2,

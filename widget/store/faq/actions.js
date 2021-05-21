@@ -28,7 +28,7 @@ export default {
       !response?.data?.Message &&
       !response?.data?.ErrorCode
     ) {
-      commit(types.SET_FAQS, response?.data?.QA)
+      commit(types.SET_FAQS, response?.data?.FaqData)
       return Promise.resolve()
     }
     return Promise.reject(new Error('action GET_FAQS error'))

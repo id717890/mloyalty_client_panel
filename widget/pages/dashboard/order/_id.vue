@@ -1,20 +1,22 @@
 <template>
   <div>
-    <MlHeaderPage back-url="/dashboard/history" :title="'Чек #' + order.id" />
+    <MlHeaderPage back-url="/dashboard/history" title="Детализация" />
     <div class="px-11">
-      <!-- <div class="ml-text-13-18 my-8">Номер чека: {{ order.id }}</div> -->
+      <div class="ml-text-13-18 my-7 text-uppercase ml-text-grey3">
+        Номер чека: {{ order.id }}
+      </div>
       <div>
         <div
-          v-for="(item, index) in orderItems"
+          v-for="item in orderItems"
           :key="item.id"
-          class="ml-order-detail-position"
+          class="ml-order-detail-position ml-white-block mb-4"
         >
-          <div class="ml-text-15-22 pr-2">{{ index + 1 }}.</div>
+          <!-- <div class="ml-text-15-22 pr-2">{{ index + 1 }}.</div> -->
           <div>
-            <div class="ml-text-15-22 mb-2">
+            <div class="ml-text-15-22-700 mb-2">
               {{ item.name || item.id }}
             </div>
-            <div class="ml-text-13-18 mb-2">
+            <div class="ml-text-14-18-500 ml-opacity-05 mb-2">
               {{ item.price }} ₽ × {{ item.count }} = {{ item.sum }} ₽
             </div>
             <div>
@@ -32,7 +34,7 @@
               <span class="pr-2">
                 <img src="~/static/image/procent.svg" alt="" />
               </span>
-              <span class="ml-text-13-18">
+              <span class="ml-text-15-18 ml-opacity-04">
                 Применена скидка — {{ item.discount }} ₽
               </span>
             </div>
@@ -40,7 +42,7 @@
               <span class="">
                 <img src="~/static/image/cut.svg" alt="" />
               </span>
-              <span class="ml-text-13-18">
+              <span class="ml-text-15-18 ml-opacity-04">
                 Применен купон {{ item.coupon }}</span
               >
             </div>

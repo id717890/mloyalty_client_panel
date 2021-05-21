@@ -23,22 +23,22 @@
             :key="order.id"
             class="ml-white-block pa-0 mb-4"
           >
-            <div class="pa-5">
+            <div class="pt-4 px-5 pb-5">
               <!-- <div v-for="order in orders" :key="order.id" class="ml-order-block"> -->
               <div class="d-flex">
-                <div class="ml-text-19-22-500 flex-grow-1">
+                <div class="ml-text-17-22-700 flex-grow-1">
                   {{ order.title }}
                 </div>
                 <div class="d-flex flex-column">
-                  <div class="ml-text-13-18">{{ order.date }}</div>
-                  <div class="ml-text-13-18">{{ order.time }}</div>
+                  <div class="ml-text-13-18 text-right">{{ order.date }}</div>
+                  <div class="ml-text-13-18 text-right">{{ order.time }}</div>
                 </div>
               </div>
-              <div v-if="order.shopName" class="ml-text-15-18 mb-1">
+              <div v-if="order.shopName" class="ml-text-13-16-700 mb-1">
                 {{ order.shopName }}
               </div>
-              <div v-if="orderType(order)">
-                <span class="ml-text-15-18">{{ orderType(order) }}</span>
+              <div v-if="orderType(order)" class="mb-1">
+                <span class="ml-text-13-18">{{ orderType(order) }}</span>
                 <span class="ml-text-17-18">{{ order.sum }}₽</span>
               </div>
               <div class="d-flex align-items-center flex-row flex-nowrap">
@@ -55,24 +55,22 @@
                 >
                   {{ order.bonusUse }} Б
                 </div>
+                <div
+                  v-if="order.type !== 'bonus' && order.items.length > 0"
+                  class="ml-order-detail-link ml-text-13-22"
+                  style="margin-right: -7px"
+                  @click.prevent="openDetails(order)"
+                >
+                  <span class="ml-text-13-22">Подробнее</span>
+                  <v-icon>mdi-chevron-right</v-icon>
+                </div>
               </div>
             </div>
-            <div v-if="order.type !== 'bonus' && order.items.length > 0">
-              <div
-                class="ml-order-detail-link px-5"
-                @click.prevent="openDetails(order)"
-              >
+            <!-- <div>
+              <div class="ml-order-detail-link px-5">
                 <span>Детализация</span>
-                <v-icon>mdi-chevron-right</v-icon>
               </div>
-              <div
-                class="ml-order-feedback-link px-5"
-                @click.prevent="openFeedback(order)"
-              >
-                <span>Оставить отзыв</span>
-                <v-icon>mdi-chevron-right</v-icon>
-              </div>
-            </div>
+            </div> -->
           </div>
           <a
             v-if="!endOfOrders"
@@ -92,14 +90,14 @@
 import { mapState, mapGetters } from 'vuex'
 import { mask } from 'vue-the-mask'
 
-const addOrders = 15
+const addOrders = 25
 
 export default {
   directives: { mask },
   layout: 'dashboard',
   data: () => ({
     price: 0,
-    showOrders: 15,
+    showOrders: 25,
   }),
   computed: {
     ...mapGetters('client', ['allOrdersAndBonuses']),
@@ -122,7 +120,6 @@ export default {
     },
   },
   methods: {
-    openFeedback() {},
     showMore() {
       this.showOrders += addOrders
     },
@@ -152,25 +149,13 @@ export default {
 </script>
 
 <style lang="scss">
-.ml-order-detail-link,
-.ml-order-feedback-link {
-  border-top: 1px solid #e6e6e6;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
+.ml-order-detail-link {
+  flex-grow: 1;
+  text-align: right;
   cursor: pointer;
-
-  span {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    color: #000000;
-    opacity: 0.5;
-  }
 }
 
-.ml-order-detail-link:hover,
-.ml-order-feedback-link:hover {
+.ml-order-detail-link:hover {
   span {
     color: #4d4d4d;
   }

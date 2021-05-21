@@ -19,7 +19,7 @@ export default {
       // console.log('map bonus')
       resultBonuses = bonuses.map((bonus) => {
         const date = format(parseISO(bonus?.BonusTime), 'dd.MM.yyyy')
-        const time = format(parseISO(bonus?.BonusTime), 'hh:mm')
+        const time = format(parseISO(bonus?.BonusTime), 'HH:mm')
         const dateTime = bonus?.BonusTime
 
         const bonusMapped = {
@@ -44,7 +44,7 @@ export default {
     if (orders) {
       resultOrders = orders.map((order) => {
         const date = format(parseISO(order?.Date), 'dd.MM.yyyy')
-        const time = format(parseISO(order?.Date), 'hh:mm')
+        const time = format(parseISO(order?.Date), 'HH:mm')
         const dateTime = order?.Date
         let type
         let sum

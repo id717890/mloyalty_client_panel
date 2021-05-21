@@ -3,13 +3,13 @@ import FaqService from '~/api/FaqService'
 import errorHandler from '~/helpers/errorHandler'
 
 export default {
-  [types.GET_FAQS]: async ({ commit, rootGetters, rootState }, payload) => {
+  [types.GET_FAQS]: async ({ commit, rootGetters, rootState }) => {
     const sitecode = rootState?.app?.sitecode
     const operator = rootGetters['app/getOperator']
     const token = rootGetters['app/getToken']
-    const isWidgetBurger = payload?.isWidgetBurger
-    const isWidgetPreview = payload?.isWidgetPreview
-    const isSertOwnerSite = payload?.isSertOwnerSite
+    // const isWidgetBurger = payload?.isWidgetBurger
+    // const isWidgetPreview = payload?.isWidgetPreview
+    // const isSertOwnerSite = payload?.isSertOwnerSite
     if (!operator || !sitecode || !token) {
       return errorHandler.throw('GET_FAQS: не определен один из параметров')
     }
@@ -17,9 +17,10 @@ export default {
       sitecode,
       operator,
       token,
-      VidgetBurger: isWidgetBurger,
-      VidgetPreview: isWidgetPreview,
-      SertOwnerSite: isSertOwnerSite,
+      site: true,
+      // VidgetBurger: isWidgetBurger,
+      // VidgetPreview: isWidgetPreview,
+      // SertOwnerSite: isSertOwnerSite,
     }
     const response = await FaqService.getSiteFaq(request)
     if (

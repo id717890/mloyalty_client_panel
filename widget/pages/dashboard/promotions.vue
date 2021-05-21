@@ -12,29 +12,47 @@
         <div class="ml-promo-block_img">
           <img :src="item.logo" alt="" />
         </div>
-        <div class="ml-promo-block_title px-5 ml-text-18-22-900 pt-4 pb-3">
+        <div class="ml-promo-block_title px-5 ml-text-18-22-900 pt-4 pb-1">
           {{ item.tagline }}
         </div>
-        <!-- <div class="ml-promo-block_subtitle px-5 ml-text-14-16-700 pb-4">
-          {{ item.subtitle }}
-        </div> -->
+        <div class="ml-promo-block_subtitle px-5 ml-text-13-16-700 pb-4">
+          {{ item.condition }}
+        </div>
         <div
           :ref="'promo-text' + item.id"
           class="ml-promo-block_text ml-text-14-22 mx-5 pt-4"
         >
-          <pre class="ml-text-14-22" style="white-space: pre-line">
+          <pre
+            class="ml-text-14-22 ml-opacity-07"
+            style="white-space: pre-line"
+          >
             {{ item.description }}
           </pre>
         </div>
-        <div class="px-5 text-right mb-3">
+        <div class="px-5 mb-3 ml-promo-open">
+          <a
+            href="#"
+            class="ml-text-13-22 ml-opacity-07 ml-text-grey3 d-flex align-items-center mb-2"
+            @click.prevent="toggleDetails(item.id)"
+          >
+            Подробнее
+            <img
+              src="/image/arrow-right.png"
+              class="ml-2"
+              style="margin-top: 2px"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="px-5 text-right mb-3 ml-promo-close">
           <v-btn
             text
             icon
             class="ml-promo-arrow-btn"
             @click="toggleDetails(item.id)"
           >
-            <img src="/image/arrow-up.svg" class="ml-promo-close" alt="" />
-            <img src="/image/arrow-down.svg" class="ml-promo-open" alt="" />
+            <img src="/image/arrow-up.svg" class="" alt="" />
+            <!-- <img src="/image/arrow-down.svg" class="ml-promo-open" alt="" /> -->
           </v-btn>
         </div>
       </div>

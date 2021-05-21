@@ -69,11 +69,7 @@ export default {
     setInitialize() {
       if (this.isInit === false) {
         this.loading = true
-        this[faqTypes.GET_FAQS]({
-          isWidgetBurger: true,
-          isWidgetPreview: false,
-          isSertOwnerSite: false,
-        })
+        this[faqTypes.GET_FAQS]()
           .finally(() => {
             this.loading = false
           })

@@ -17,7 +17,7 @@
             class="ml-select ml-select-white ml-hide-details ml-radius-16"
             :items="option.types"
             label="Тема обращения*"
-            height="60"
+            height="50"
             outlined
             item-text="name"
             return-object

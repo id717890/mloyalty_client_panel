@@ -16,32 +16,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import appTypes from '~/store/app/types'
+import mixinInit from '~/helpers/mixins/init'
 
 export default {
-  middleware: ['jwtauth', 'widgetConfig'],
+  mixins: [mixinInit],
+  middleware: ['sitecode', 'jwtauth', 'widgetConfig'],
   head() {
     return {
       bodyAttrs: {
         class: 'ml-bg1',
       },
     }
-  },
-  computed: {
-    ...mapState({
-      code: (state) => state?.app?.sitecode,
-    }),
-  },
-  mounted() {
-    document.getElementById('app').classList.add('ml-bg1')
-    window?.xprops?.onProps(async (newProps) => {
-      const code = newProps?.code
-      if (code && code !== this.code && code !== '*') {
-        console.log('onProps event', newProps)
-        await this.$store?.commit(`app/${appTypes.SET_SITECODE}`, code)
-      }
-    })
   },
 }
 </script>

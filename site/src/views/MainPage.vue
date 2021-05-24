@@ -131,11 +131,14 @@ export default {
     initWidget() {
       this.$refs['widget-wrapper'].innerHTML = null
       MloyaltyWidget({
+        url: 'http://lkvidget.lctest.ru/',
         // sourceurl: 'http://localhost:8080',
-        code: 'Личный кабинет',
+        // code: '*',
+        code: 'empty',
+        // code: '*',
         metadata: {
-          client_mloyalty: 2,
-          client_ishop: 1234
+          client_mloyalty: 2
+          // client_ishop: 1234
         },
         onHide: value => {
           this.$set(this, 'isShowMobileCloseBtn', !value)

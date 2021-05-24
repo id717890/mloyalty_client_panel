@@ -1,14 +1,13 @@
 <template>
   <div>
-    <h3>ERROR</h3>
-    <div v-if="message" class="mb-4">{{ message }}</div>
-    <div v-if="subMessage">{{ subMessage }}</div>
+    <h3 v-if="message" class="mb-4">{{ message }}</h3>
+    <h4 v-if="subMessage" class="mb-4">{{ subMessage }}</h4>
   </div>
 </template>
 
 <script>
 export default {
-  layout: 'error',
+  layout: 'throw',
   computed: {
     message() {
       return this.$route.params?.message

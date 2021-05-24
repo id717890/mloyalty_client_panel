@@ -1,14 +1,6 @@
 import AuthService from '@/api/AuthService'
-import appTypes from '~/store/app/types'
 
 export default async ({ store, redirect }) => {
-  const metadata = window?.xprops?.metadata
-  const code = window?.xprops?.code
-  const hostname = window?.xprops?.hostname
-  if (metadata) store?.commit(`app/${appTypes.SET_METADATA}`, metadata)
-  if (code) store?.commit(`app/${appTypes.SET_SITECODE}`, code)
-  if (hostname) store?.commit(`app/${appTypes.SET_SOURCEURL}`, hostname)
-  console.log('INIT', code, hostname, metadata)
   const accessToken = store?.state?.auth?.accessToken
   const refreshToken = store?.state?.auth?.refreshToken
   // Определяем наличие accessToken и refreshToken в хранилище

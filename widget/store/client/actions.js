@@ -32,11 +32,12 @@ export default {
     const { sourceurl } = rootState?.app
     const operator = rootGetters['app/getOperator']
     const token = rootState?.auth?.decodeJwt?.token
-    const clientId = rootGetters['app/getClientMloyalty']
+    const client = rootGetters['app/getClientMloyalty']
+    const poscode = rootGetters['app/getPosCode']
     // state?.clientId
     const clientIshop = parseInt(rootGetters['app/getClientIshop'])
-    const request = { operator, token, clientId, clientIshop, sourceurl }
-    if (clientIshop && clientId) {
+    const request = { operator, token, client, clientIshop, sourceurl, poscode }
+    if (clientIshop && client) {
       // const { data, status } = await ClientService.clientCreateIshop(request)
       // console.log(data, status)
       await ClientService.clientCreateIshop(request)
@@ -268,7 +269,11 @@ export default {
     const client = rootGetters['app/getClientMloyalty']
     return ClientService.getClientInfo({ operator, client }).then(
       async (response) => {
-        if (response?.status === 200) {
+        if (
+          response?.status === 200 &&
+          !response?.data?.Message &&
+          response?.data?.ErrorCode === 0
+        ) {
           if (!response?.data?.ErrorCode && !response?.data?.Message) {
             delete response?.data?.Message
             delete response?.data?.ErrorCode

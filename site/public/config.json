@@ -1,7 +1,6 @@
 {
   "code": "*",
-  "url": "http://lkvidget.lctest.ru/",
+  "url": "http://localhost:3000/",
   "debug": "true",
-  "metadata": { "client_mloyalty": "", "client_ishop": "1234" },
-  "sourceurl": "http://lk.lctest.ru/"
+  "metadata": { "client_mloyalty": 2 }
 }

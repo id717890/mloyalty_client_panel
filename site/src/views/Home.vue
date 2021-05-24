@@ -11,17 +11,37 @@
         Личный кабинет
       </a>
     </div>
-    <div v-else>
-      <button
-        type="button"
-        class="ml-silver-btn w100"
-        style="font-size: 16px;"
-        @click="openSidePanel"
-      >
-        <v-icon>mdi-bag-checked</v-icon>
-        Личный кабинет
-      </button>
-    </div>
+    <template v-else>
+      <div class="d-flex flex-column">
+        <button
+          type="button"
+          class="ml-silver-btn w100 mb-3"
+          style="font-size: 16px;"
+          @click="openSidePanel"
+        >
+          <v-icon>mdi-bag-checked</v-icon>
+          Личный кабинет
+        </button>
+        <button
+          type="button"
+          class="ml-silver-btn w100 mb-3"
+          style="font-size: 16px;"
+          @click="openSidePanelEmpty"
+        >
+          <v-icon>mdi-bag-checked</v-icon>
+          empty
+        </button>
+        <button
+          type="button"
+          class="ml-silver-btn w100 mb-3"
+          style="font-size: 16px;"
+          @click="openSidePanelDefault"
+        >
+          <v-icon>mdi-bag-checked</v-icon>
+          *
+        </button>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -44,7 +64,17 @@ export default {
       MloyaltyWidget.open('Личный кабинет')
       // MloyaltySidePanel.show('mloyalty-side-panel-widget')
     },
+    openSidePanelDefault() {
+      MloyaltyWidget.open('*')
+      // MloyaltySidePanel.show('mloyalty-side-panel-widget')
+    },
+    openSidePanelEmpty() {
+      MloyaltyWidget.open('empty')
+      // MloyaltySidePanel.show('mloyalty-side-panel-widget')
+    },
     togglePanel() {
+      // MloyaltyWidget.open('Личный кабинет')
+      // widgetZoidComponent.updateProps({ code: 'Личный кабинет' })
       this[panelTypes.TOGGLE_PANEL](true)
     }
   }

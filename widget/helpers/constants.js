@@ -1,4 +1,9 @@
 export default {
+  SITECODES: {
+    EMPTY: 'EMPTY',
+    DEFAULT: '*',
+    LK: 'ЛИЧНЫЙ КАБИНЕТ',
+  },
   SMS_CODE_TYPE: {
     SERT_BUYER: 1,
     BALANCE: 2,

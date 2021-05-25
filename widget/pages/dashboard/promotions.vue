@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div class="d-flex flex-column">
     <MlHeaderPage title="Акции" />
-    <MlLoading v-if="loading" class="pt-5" />
+    <MlLoading
+      v-if="loading"
+      class="pt-5 flex-grow-1 d-flex justify-content-center align-items-center"
+    />
     <div v-else class="px-10 py-4 d-flex flex-column">
       <div
         v-for="item in promos"
@@ -23,7 +26,7 @@
           class="ml-promo-block_text ml-text-14-22 mx-5 pt-4"
         >
           <pre
-            class="ml-text-14-22 ml-opacity-07"
+            class="ml-text-14-22 ml-opacity-09"
             style="white-space: pre-line"
           >
             {{ item.description }}
@@ -52,7 +55,6 @@
             @click="toggleDetails(item.id)"
           >
             <img src="/image/arrow-up.svg" class="" alt="" />
-            <!-- <img src="/image/arrow-down.svg" class="ml-promo-open" alt="" /> -->
           </v-btn>
         </div>
       </div>
@@ -68,26 +70,6 @@ export default {
   layout: 'dashboard',
   data: () => ({
     loading: false,
-    items: [
-      {
-        id: 1,
-        img: '/image/example/promo1.png',
-        size: 'hd',
-        title: 'Скидка 30% на первый заказ',
-        subtitle: 'За любую покупку от 1000 рублей',
-        text:
-          'Купи 2 пиццы на сумму от 2000 рублей и получи дополнительно 500 бонусов! Их нужно потратить до 14 февраля иначе они сгорят! Спешите, ждем Вас!',
-      },
-      {
-        id: 2,
-        img: '/image/example/promo2.png',
-        size: 'sm',
-        title: 'Скидка 30% на первый заказ',
-        subtitle: 'За любую покупку от 1000 рублей',
-        text:
-          'Купи 3 пиццы на сумму от 3000 рублей и получи дополнительно 900 бонусов! Их нужно потратить до 14 февраля иначе они сгорят! Спешите, ждем Вас!',
-      },
-    ],
   }),
   computed: {
     ...mapState({

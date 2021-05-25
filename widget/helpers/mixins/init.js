@@ -11,9 +11,8 @@ export default {
     document?.getElementById('app')?.classList?.add('ml-bg1')
     window?.xprops?.onProps(async (newProps) => {
       const code = newProps?.code
-      console.log('onProps before if', code, this.code)
       if (code && code !== this.code) {
-        console.log('onProps event', newProps)
+        console.log('PROPS EVENT', newProps)
         await this.$store?.commit(`app/${appTypes.SET_SITECODE}`, code)
         this.$router.push({ name: 'index' })
       }

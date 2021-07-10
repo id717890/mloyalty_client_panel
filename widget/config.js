@@ -3,6 +3,8 @@ export default {
   // jwtp: 'MilanaSilver',
   jwtu: 'unksite',
   jwtp: 'unksite',
+  // jwtu: 'vidget_loyalty',
+  // jwtp: 'vidget_loyalty',
   defaultModal: {
     height: 'auto',
     maxWidth: 400,

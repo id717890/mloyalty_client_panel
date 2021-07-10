@@ -140,7 +140,7 @@ export default {
     },
     async setInitialize() {
       this.loading = true
-      console.log(this.getClientMloyalty)
+      console.log('CLIENT_ID', this.getClientMloyalty)
       if (this.getClientMloyalty) {
         await this[clientTypes.CLIENT_CREATE_ISHOP_ACTION]()
         this.$router.push({ name: 'dashboard' })

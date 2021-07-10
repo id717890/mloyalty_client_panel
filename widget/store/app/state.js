@@ -1,15 +1,16 @@
 export default () => ({
-  // sourceurl: 'htt://localhost:8080',
-  sourceurl: null,
-  sitecode: null,
-  // sitecode: 'Личный кабинет',
-  metadata: null,
-  // metadata: {
-  // client_mloyalty: 2,
-  // client_ishop: 1234,
-  // },
-  testMode: false,
-  // testMode: true,
+  sourceurl: 'htt://localhost:8080',
+  // sourceurl: null,
+  // sitecode: null,
+  sitecode: 'Личный кабинет',
+  // metadata: null,
+  metadata: {
+    // client_mloyalty: 2,
+    client_mloyalty: 264658, // Юсупов
+    // client_ishop: 1234,
+  },
+  // testMode: false,
+  testMode: true,
   loading: false,
   panelBurger: {
     width: 448,

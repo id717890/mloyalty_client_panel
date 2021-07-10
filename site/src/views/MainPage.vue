@@ -131,13 +131,14 @@ export default {
     initWidget() {
       this.$refs['widget-wrapper'].innerHTML = null
       MloyaltyWidget({
-        url: 'http://lkvidget.lctest.ru/',
-        // sourceurl: 'http://localhost:8080',
-        // code: '*',
-        code: 'empty',
+        // url: 'http://lkvidget.lctest.ru/',
+        url: 'http://localhost:3000',
+        code: 'Личный кабинет',
+        // code: 'empty',
         // code: '*',
         metadata: {
-          client_mloyalty: 2
+          // client_mloyalty: 2
+          client_mloyalty: 264658
           // client_ishop: 1234
         },
         onHide: value => {

@@ -5,7 +5,7 @@
         <div class="ml-text-24-32-600 flex-grow-1 ml-text-black2">
           {{ fio }}
         </div>
-        <v-btn icon class="ml-edit-fio-btn" @click="changeFioStart">
+        <v-btn icon class="ml-edit-fio-btn" @click="goToSettings">
           <img src="/image/pencil1.svg" alt="" />
         </v-btn>
       </div>
@@ -187,6 +187,9 @@ export default {
   },
   methods: {
     ...mapActions('client', [clientTypes.CLIENT_CHANGE_FIO_ACTION]),
+    goToSettings() {
+      this.$router.push({ name: 'dashboard-settings' })
+    },
     changeFioStart() {
       this.form.fio = this.fio
       this.isEditFio = true

@@ -31,6 +31,10 @@ a {
   background: #f6f6f6 !important;
 }
 
+.ml-bg2 {
+  background: #4D4D4D !important;
+}
+
 * {
   font-family: Inter;
   font-style: normal;
@@ -141,4 +145,8 @@ button:focus {
 
 .ml-radius-20 {
   border-radius: 20px;
+}
+
+.ml-radius-32 {
+  border-radius: 32px;
 }

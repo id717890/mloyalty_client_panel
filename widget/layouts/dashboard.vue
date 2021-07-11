@@ -41,7 +41,7 @@ import MlLoading from '~/components/UI/MlLoading'
 
 export default {
   components: { MlLoading },
-  middleware: ['jwtauth', 'lkauth'],
+  middleware: ['jwtauth', 'widgetConfig', 'lkauth'],
   data: () => ({}),
   head() {
     return {

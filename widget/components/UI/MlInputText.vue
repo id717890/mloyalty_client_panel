@@ -2,6 +2,18 @@
   <div class="ml-settings-field-wrapper">
     <div v-if="title" class="ml-text-14-16-700 mr-4">{{ title }}</div>
     <v-text-field
+      v-if="maskField"
+      ref="maskedField"
+      v-mask="maskField"
+      v-bind="$attrs"
+      :value="value"
+      class="ma-0 pa-0 ml-settings-field"
+      :placeholder="placeholder"
+      @input="$emit('input', $event)"
+    ></v-text-field>
+    <v-text-field
+      v-else
+      v-bind="$attrs"
       :value="value"
       class="ma-0 pa-0 ml-settings-field"
       :placeholder="placeholder"
@@ -11,14 +23,23 @@
 </template>
 
 <script>
+import { mask } from 'vue-the-mask'
+
 export default {
   name: 'MlInputText',
+  directives: { mask },
+  inheritAttrs: false,
   model: {
     prop: 'value',
     event: 'input',
   },
   props: {
     title: {
+      type: String,
+      required: false,
+      default: null,
+    },
+    maskField: {
       type: String,
       required: false,
       default: null,

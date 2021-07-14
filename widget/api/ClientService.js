@@ -1,8 +1,14 @@
 import ApiBase from './_ApiBase'
 
 export default {
-  changeFio(data) {
+  changeClientPhone(data) {
+    return ApiBase.post('api/values/PhoneChange', data)
+  },
+  changeClient(data) {
     return ApiBase.post('api/client/ChangeClient', data)
+  },
+  changeClient2(data) {
+    return ApiBase.post('api/values/ChangeClient', data)
   },
   clientCreateIshop(data) {
     return ApiBase.post('api/client/ClientCreateIshop', data)

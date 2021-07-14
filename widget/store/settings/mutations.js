@@ -1,6 +1,15 @@
 import types from './types'
 
 export default {
+  [types.SET_SETTINGS_NOTIFY]: (state, payload) => {
+    state.notify = payload
+  },
+  [types.SET_SETTINGS_EMAIL_IS_VERIFY]: (state, payload) => {
+    state.emailIsVerify = payload
+  },
+  [types.SET_SETTINGS_PHONE_IS_VERIFY]: (state, payload) => {
+    state.phoneIsVerify = payload
+  },
   [types.SET_SETTINGS_FIO]: (state, payload) => {
     state.fio = payload
   },

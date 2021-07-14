@@ -123,6 +123,11 @@
   }
 }
 
+.ml-input-code,
+.ml-input-code2 {
+  margin: 0 10px;
+}
+
 /*Поле ввода кода верификации*/
 input[type='text'].ml-input-code,
 input[type='number'].ml-input-code,
@@ -149,17 +154,45 @@ input[type='number'].ml-input-code,
   color: #000000;
 }
 
+input[type='text'].ml-input-code2,
+.ml-input-code2 {
+  /* Remove First */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  outline: none !important;
+  width: 52px;
+  min-width: 52px;
+  height: 52px;
+  min-width: 52px;
+  background: #EBEBEB;
+  border: 1px solid #EBEBEB;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.02em;
+  color: #000000;
+}
+
 input[type='number'].ml-input-code::-webkit-outer-spin-button,
-input[type='number'].ml-input-code::-webkit-inner-spin-button {
+input[type='number'].ml-input-code::-webkit-inner-spin-button,
+input[type='number'].ml-input-code2::-webkit-outer-spin-button,
+input[type='number'].ml-input-code2::-webkit-inner-spin-button {
   -webkit-appearance: none !important;
   margin: 0;
 }
 
-input[type='number'].ml-input-code {
+input[type='number'].ml-input-code,
+input[type='number'].ml-input-code2 {
   -moz-appearance: textfield !important;
 }
 
-.ml-input-code.invalid {
+.ml-input-code.invalid,
+.ml-input-code2.invalid {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   appearance: none !important;
@@ -170,7 +203,8 @@ input[type='number'].ml-input-code {
   border: 1px solid #e94574 !important;
 }
 
-.ml-input-code:focus {
+.ml-input-code:focus,
+.ml-input-code2:focus {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   appearance: none !important;
@@ -178,7 +212,7 @@ input[type='number'].ml-input-code {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   outline: none !important;
-  border: 1px solid #000000 !important;
+  border: 1px solid #EBEBEB !important;
 }
 
 .ml-hide-details {

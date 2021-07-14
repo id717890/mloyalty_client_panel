@@ -25,4 +25,10 @@ export default {
   sendCodeForClient(data) {
     return ApiBase.post('api/client/GetConfirmCode', data)
   },
+  requestEmailCode(data) {
+    return ApiBase.post('api/client/SendEmailCode', data)
+  },
+  validateEmailCode(data) {
+    return ApiBase.post('api/client/ValidateEmail', data)
+  },
 }

@@ -22,7 +22,7 @@ export default {
       poscode,
       clientData,
     }
-    const { data, status } = await ClientService.changeFio(requset)
+    const { data, status } = await ClientService.changeClient(requset)
     if (status === 200 && data?.ErrorCode === 0 && !data?.Message) {
       commit(types.CHANGE_CLIENT_NAME, fio)
     }

@@ -2,7 +2,7 @@
   <div class="ml-settings-field-wrapper">
     <div v-if="title" class="ml-text-14-16-700 mr-4">{{ title }}</div>
     <v-text-field
-      v-if="maskField"
+      v-if="maskField && value"
       ref="maskedField"
       v-mask="maskField"
       v-bind="$attrs"
@@ -54,6 +54,12 @@ export default {
       required: false,
       default: null,
     },
+  },
+  mounted() {
+    const el = this.$refs.maskedField
+    if (el) {
+      console.log('element', el.$el.focus())
+    }
   },
 }
 </script>

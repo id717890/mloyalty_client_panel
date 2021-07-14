@@ -8,9 +8,9 @@
         <v-btn icon class="ml-edit-fio-btn" @click="goToSettings">
           <img src="/image/pencil1.svg" alt="" />
         </v-btn>
-        <v-btn icon class="ml-edit-fio-btn" @click="changeFioStart">
+        <!-- <v-btn icon class="ml-edit-fio-btn" @click="changeFioStart">
           <img src="/image/pencil1.svg" alt="" />
-        </v-btn>
+        </v-btn> -->
       </div>
       <div v-if="isEditFio" class="d-flex flex-row flex-nowrap">
         <v-text-field

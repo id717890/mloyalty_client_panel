@@ -3,10 +3,14 @@
     <div class="">
       <p class="ml-text-16-24-600 mb-6">Введите код подтверждения</p>
     </div>
-    <div class="d-flex align-center mb-6">
+    <div
+      class="d-flex align-center mb-6"
+      :class="{ 'justify-content-center': justifyCenter }"
+    >
       <MlInputCode
         ref="code1"
         v-model="number1OfCode"
+        :istyle="istyle"
         :invalid="invalidCode"
         type="number"
         class="mr-2"
@@ -16,6 +20,7 @@
         ref="code2"
         v-model="number2OfCode"
         :invalid="invalidCode"
+        :istyle="istyle"
         type="number"
         class="mr-2"
         @input="proccessNumber2"
@@ -23,6 +28,7 @@
       <MlInputCode
         ref="code3"
         v-model="number3OfCode"
+        :istyle="istyle"
         :invalid="invalidCode"
         type="number"
         class="mr-2"
@@ -31,6 +37,7 @@
       <MlInputCode
         ref="code4"
         v-model="number4OfCode"
+        :istyle="istyle"
         :invalid="invalidCode"
         type="number"
         class="mr-2"
@@ -48,11 +55,12 @@
     <div v-if="invalidCode" class="ml-error-text ml-title-14-20 mb-6">
       Введён неверный код подтверждения
     </div>
-    <div class="ml-title-14-20">Код подтверждения отправлен Вам в смс</div>
+    <!-- <div class="ml-title-14-20">Код подтверждения отправлен Вам в смс</div> -->
     <!-- <div v-if="isMessenger" class="ml-title-14-20">
       Ссылка для получения кода подтверждения в Telegram, отправлена Вам в смс.
       Перейдите по ссылке и получите код подтверждения.
     </div> -->
+    <slot name="title"></slot>
     <slot name="text"> </slot>
     <div v-if="!showResendBtn" class="text-center ml-title-14-20 mt-6">
       {{ timerForResendText }}
@@ -62,6 +70,7 @@
         Отправить повторно
       </a>
     </div>
+    <slot name="footer"></slot>
   </div>
 </template>
 
@@ -71,7 +80,7 @@ import { mapActions, mapState } from 'vuex'
 import verifyTypes from '@/store/verify/types'
 import { debounce } from 'lodash'
 
-const TIMER_SECONDS = 10
+const TIMER_SECONDS = 3
 const DEFAULT_COMMUNICATION_TYPE = 1
 
 export default {
@@ -79,6 +88,14 @@ export default {
     MlInputCode,
   },
   props: {
+    justifyCenter: {
+      type: Boolean,
+      default: false,
+    },
+    istyle: {
+      type: String,
+      default: 'ml-input-code',
+    },
     type: {
       type: Number,
       required: true,
@@ -87,11 +104,18 @@ export default {
     // 2 - код для проверки баланса
     codeType: {
       type: Number,
-      required: true,
+      required: false,
+      default: null,
     },
     phone: {
       type: String,
-      required: true,
+      required: false,
+      default: null,
+    },
+    email: {
+      type: String,
+      required: false,
+      default: null,
     },
   },
   data: () => ({
@@ -137,6 +161,10 @@ export default {
         this.sendVerificationCodeViaSms,
         debounceTimeout
       ),
+      sendVerificationCodeViaEmail: debounce(
+        this.sendVerificationCodeViaEmail,
+        debounceTimeout
+      ),
       // sendVerificationCodeViaMessanger: debounce(
       //   this.sendVerificationCodeViaMessanger,
       //   debounceTimeout
@@ -150,7 +178,9 @@ export default {
   methods: {
     ...mapActions('verify', [
       verifyTypes.SEND_VERIFICATIONCODE_VIA_SMS,
+      verifyTypes.SEND_VERIFICATIONCODE_VIA_EMAIL,
       verifyTypes.REQUEST_CODE,
+      verifyTypes.REQUEST_EMAIL_CODE,
     ]),
     resetCode() {
       this.number1OfCode = null
@@ -163,23 +193,38 @@ export default {
       if (isResend === true) {
         this.showResendBtn = false
         this.resetCode()
-        const phone = this.clearPhone
-        const communicationType = DEFAULT_COMMUNICATION_TYPE
-        const codeType = this.codeType
-        this[verifyTypes.REQUEST_CODE]({
-          phone,
-          communicationType,
-          codeType,
-        }).then(() => {
-          this.timerForResend.seconds = TIMER_SECONDS
-          this.timerForResend.id = setInterval(this.timerForResending, 1000)
-          this.$refs?.code1?.$el?.focus()
-        })
+        if (this.phone) this.requestPhoneCode()
+        if (this.email) this.requestEmailCode()
       } else {
         this.showResendBtn = false
         this.timerForResend.seconds = TIMER_SECONDS
         this.timerForResend.id = setInterval(this.timerForResending, 1000)
       }
+    },
+    requestPhoneCode() {
+      const phone = this.clearPhone
+      const communicationType = DEFAULT_COMMUNICATION_TYPE
+      const codeType = this.codeType
+      this[verifyTypes.REQUEST_CODE]({
+        phone,
+        communicationType,
+        codeType,
+      }).then(() => {
+        console.log('ok p')
+
+        this.timerForResend.seconds = TIMER_SECONDS
+        this.timerForResend.id = setInterval(this.timerForResending, 1000)
+        this.$refs?.code1?.$el?.focus()
+      })
+    },
+    requestEmailCode() {
+      console.log('requestEmailCode')
+      this[verifyTypes.REQUEST_EMAIL_CODE](this.email).then(() => {
+        console.log('ok e')
+        this.timerForResend.seconds = TIMER_SECONDS
+        this.timerForResend.id = setInterval(this.timerForResending, 1000)
+        this.$refs?.code1?.$el?.focus()
+      })
     },
     timerForResending() {
       if (this.timerForResend.seconds !== 1) {
@@ -187,6 +232,21 @@ export default {
       } else {
         clearInterval(this.timerForResend.id)
         this.showResendBtn = true
+      }
+    },
+    async sendVerificationCodeViaEmail(code) {
+      const result = await this[verifyTypes.SEND_VERIFICATIONCODE_VIA_EMAIL]({
+        code,
+        email: this.email,
+      })
+      this.successVerification = result
+      if (result === true) {
+        this.$emit('success')
+      } else {
+        setTimeout(() => {
+          this.resetCode()
+          this.$refs?.code1?.$el?.focus()
+        }, 2000)
       }
     },
     sendVerificationCodeViaSms(code) {
@@ -261,7 +321,8 @@ export default {
         if (code1 && code2 && code3 && code4) {
           const code = `${code1}${code2}${code3}${code4}`
           // if (this.isSms) {
-          this.debounced.sendVerificationCodeViaSms(code)
+          if (this.phone) this.debounced.sendVerificationCodeViaSms(code)
+          if (this.email) this.debounced.sendVerificationCodeViaEmail(code)
           // } else {
           // this.debounced.sendVerificationCodeViaMessanger(code)
           // }

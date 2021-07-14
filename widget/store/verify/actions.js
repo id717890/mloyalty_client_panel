@@ -4,6 +4,67 @@ import clientTypes from '~/store/client/types'
 import errorHandler from '~/helpers/errorHandler'
 
 export default {
+  [types.SEND_VERIFICATIONCODE_VIA_EMAIL]: async (
+    { commit },
+    { code, email }
+  ) => {
+    const request = {
+      email,
+      code,
+    }
+    commit(types.INIT_VERIFICATION_CODE_PROCESS, true)
+    return VerifyService.validateEmailCode(request)
+      .then(async (response) => {
+        if (
+          response?.status === 200 &&
+          !response?.data?.Message &&
+          response?.data?.ErrorCode === 0
+        ) {
+          return Promise.resolve(true)
+        } else {
+          return Promise.resolve(false)
+        }
+      })
+      .catch(() => Promise.resolve(false))
+      .finally(() => {
+        setTimeout(
+          () => commit(types.INIT_VERIFICATION_CODE_PROCESS, false),
+          500
+        )
+      })
+  },
+  async [types.REQUEST_EMAIL_CODE]({ rootGetters }, email) {
+    const poscode = rootGetters['app/getPosCode']
+    const operator = rootGetters['app/getOperator']
+    const request = {
+      poscode,
+      operator,
+      email,
+    }
+    const { data, status } = await VerifyService.requestEmailCode(request)
+    if (status === 200 && !data?.Message && data?.ErrorCode === 0) {
+      return Promise.resolve()
+    } else {
+      return errorHandler.throw(data?.Message)
+    }
+    // return VerifyService.requestCodeForClient(data)
+    //   .then((response) => {
+    //     if (
+    //       response?.status === 200 &&
+    //       !response?.data?.Message &&
+    //       response?.data?.ErrorCode === 0
+    //     ) {
+    //       return Promise.resolve()
+    //     } else {
+    //       console.log('error status')
+    //       return errorHandler.throw(response?.data?.Message)
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log('error catch')
+    //     return errorHandler.throw(error)
+    //   })
+  },
   async [types.REQUEST_CODE]({ rootState, rootGetters }, { phone }) {
     const sitecode = rootGetters['app/getSiteCode']
     const operator = rootGetters['app/getOperator']

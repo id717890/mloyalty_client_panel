@@ -92,6 +92,17 @@
   line-height: 18px;
 }
 
+.ml-text-15-20 {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 20px;
+  /* identical to box height, or 133% */
+  letter-spacing: -0.4px;
+  color: #999999;
+}
+
 .ml-text-15-22 {
   font-style: normal;
   font-weight: normal;
@@ -297,7 +308,7 @@
 }
 
 .ml-text-grey2 {
-  color: #999999;
+  color: #999999 !important;
 }
 
 .ml-text-grey3 {

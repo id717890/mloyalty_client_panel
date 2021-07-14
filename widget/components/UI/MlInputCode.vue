@@ -2,8 +2,7 @@
   <input
     v-if="any"
     v-bind="$attrs"
-    class="form-control ml-input-code"
-    :class="{ invalid }"
+    :class="currentStyle"
     :value="value"
     maxlength="1"
     @input="$emit('input', $event.target.value)"
@@ -12,8 +11,7 @@
     v-else
     v-mask="currentMask"
     v-bind="$attrs"
-    class="form-control ml-input-code"
-    :class="{ invalid }"
+    :class="currentStyle"
     :value="value"
     maxlength="1"
     @input="$emit('input', $event.target.value)"
@@ -32,6 +30,10 @@ export default {
     event: 'input',
   },
   props: {
+    istyle: {
+      type: String,
+      default: 'ml-input-code',
+    },
     value: {
       type: null,
       required: true,
@@ -51,6 +53,11 @@ export default {
     },
   },
   computed: {
+    currentStyle() {
+      let result = `form-control ${this.istyle}`
+      if (this.invalid) result += ' invalid'
+      return result
+    },
     currentMask() {
       if (this.type === 'text') {
         return ''

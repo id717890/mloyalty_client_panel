@@ -1,8 +1,8 @@
 export default {
   GENDERS: [
     { id: -1, name: 'Не указан' },
-    { id: 1, name: 'Женский' },
-    { id: 2, name: 'Мужской' },
+    { id: 0, name: 'Женский' },
+    { id: 1, name: 'Мужской' },
   ],
   PAGE_CONFIG: {
     ORDER: 'Order',

@@ -5,7 +5,7 @@ export default () => ({
   sitecode: 'Личный кабинет',
   // metadata: null,
   metadata: {
-    // client_mloyalty: 2,
+    // client_mloyalty: 2, // Лигомин
     client_mloyalty: 264658, // Юсупов
     // client_ishop: 1234,
   },

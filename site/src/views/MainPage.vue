@@ -138,7 +138,7 @@ export default {
         // code: '*',
         metadata: {
           // client_mloyalty: 2
-          client_mloyalty: 264658
+          // client_mloyalty: 264658
           // client_ishop: 1234
         },
         onHide: value => {

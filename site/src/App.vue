@@ -11,7 +11,7 @@ export default {
       code: '*',
       url: 'http://lkvidget.lctest.ru/',
       debug: true,
-      metadata: { client_mloyalty: 2, client_ishop: 1234 }
+      // metadata: { client_mloyalty: 2, client_ishop: 1234 }
       // sourceurl: 'http://lk.lctest.ru/'
     }
   }),

@@ -80,7 +80,7 @@ import { mapActions, mapState } from 'vuex'
 import verifyTypes from '@/store/verify/types'
 import { debounce } from 'lodash'
 
-const TIMER_SECONDS = 3
+const TIMER_SECONDS = 60
 const DEFAULT_COMMUNICATION_TYPE = 1
 
 export default {
